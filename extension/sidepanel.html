@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="ui.css" />
+        <link rel="stylesheet" href="sidepanel.css" />
+    </head>
+    <body>
+        <header class="head">
+            <img src="icons/icon-32.png" alt="" />
+            <h1>Kesit</h1>
+            <button id="open" class="link">Masa ↗</button>
+        </header>
+        <div class="search">
+            <input id="q" type="search" placeholder="Kesitlerde ara…" aria-label="Kesitlerde ara" />
+        </div>
+
+        <section id="page-sec">
+            <p class="section"><span>Bu sayfada</span><span id="page-n"></span></p>
+            <ul id="page" class="list"></ul>
+            <label id="page-off" class="toggle toggle--inline" hidden>
+                <span>
+                    <b>Bu sayfadaki kesitlerini görmek için</b>
+                    <small>"Sayfalarda göster"i aç</small>
+                </span>
+                <input id="marks" type="checkbox" />
+            </label>
+        </section>
+
+        <p class="section"><span>Tüm kesitler</span><span id="all-n"></span></p>
+        <p class="hint">Bir kesiti sürükleyip e-postaya, dokümana bırakabilirsin.</p>
+        <ul id="all" class="list"></ul>
+        <p id="empty" class="empty" hidden>Henüz kesit yok. Bir metni seç → sağ tıkla → <b>Kesit’e kaydet</b>.</p>
+        <button id="more" class="btn btn--plain more" hidden>Daha fazla</button>
+
+        <script src="ui.js"></script>
+        <script src="sidepanel.js"></script>
+    </body>
+</html>

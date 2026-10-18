@@ -1,0 +1,39 @@
+body {
+    min-height: 100vh;
+}
+.head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.search {
+    padding: 12px 10px 4px;
+}
+.search input {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border: 2px solid #151412;
+    background: #f7f4ec;
+    font: 14px 'Archivo', system-ui, sans-serif;
+    outline: none;
+}
+.search input:focus {
+    box-shadow: 3px 3px 0 #ff4a1c;
+}
+#page-sec .list:empty {
+    display: none;
+}
+.toggle--inline {
+    margin: 10px;
+    border: 2px solid #151412;
+}
+.hint {
+    padding: 6px 20px 0;
+    font-size: 11px;
+    color: #4a4740;
+}
+.more {
+    display: block;
+    margin: 0 10px 16px;
+}

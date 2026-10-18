@@ -1,0 +1,220 @@
+/* Açılır pencere + yan panel ortak stilleri. Uygulamayla aynı dil: kâğıt, mürekkep, fosfor. */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #ece8dc;
+    color: #151412;
+    font: 14px/1.45 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+}
+[hidden] {
+    display: none !important;
+}
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #151412;
+    color: #ece8dc;
+}
+.head img {
+    width: 24px;
+    height: 24px;
+}
+.head h1 {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+.pending {
+    padding: 2px 8px;
+    background: #ff4a1c;
+    color: #fff;
+    font: 700 10px ui-monospace, Consolas, monospace;
+    text-transform: uppercase;
+}
+.head .link {
+    background: none;
+    border: 0;
+    border-bottom: 2px solid #d4ff2a;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.section {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 12px 6px;
+    font: 700 10px ui-monospace, Consolas, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #151412;
+    margin: 0 10px;
+}
+
+.list {
+    list-style: none;
+    padding: 10px;
+    display: grid;
+    gap: 8px;
+}
+.item {
+    --mk: #d4ff2a;
+    padding: 8px 10px;
+    background: #f7f4ec;
+    border: 2px solid #151412;
+}
+.item[draggable='true'] {
+    cursor: grab;
+}
+.item[draggable='true']:hover {
+    box-shadow: 3px 3px 0 #151412;
+}
+.meta {
+    font: 10px ui-monospace, Consolas, monospace;
+    text-transform: uppercase;
+    color: #4a4740;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.txt {
+    font: 14px/1.4 'Newsreader', Georgia, serif;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.txt span {
+    background: linear-gradient(100deg, transparent 0.15em, var(--mk) 0.3em, var(--mk) calc(100% - 0.3em), transparent);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    padding: 0 0.2em;
+}
+.img {
+    display: block;
+    width: 100%;
+    max-height: 110px;
+    object-fit: cover;
+    border: 2px solid #151412;
+}
+.cmt {
+    margin-top: 4px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+    color: #4a4740;
+}
+.tags {
+    margin-top: 4px;
+    font: 700 10px ui-monospace, Consolas, monospace;
+}
+.acts {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+.act {
+    padding: 2px 8px;
+    background: transparent;
+    border: 1.5px solid #151412;
+    font-weight: 700;
+    font-size: 11px;
+}
+.act:hover {
+    background: #d4ff2a;
+}
+.empty {
+    padding: 18px 16px;
+    font: italic 15px/1.5 'Newsreader', Georgia, serif;
+}
+
+/* Anahtar (Sayfalarda göster) */
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 2px solid #151412;
+    background: #f7f4ec;
+    cursor: pointer;
+}
+.toggle span {
+    flex: 1;
+}
+.toggle b {
+    display: block;
+    font-weight: 800;
+}
+.toggle small a {
+    color: inherit;
+    font-weight: 700;
+}
+.toggle small {
+    font-size: 11px;
+    color: #4a4740;
+}
+.toggle input {
+    appearance: none;
+    flex: none;
+    width: 40px;
+    height: 22px;
+    border: 2px solid #151412;
+    background: #ece8dc;
+    position: relative;
+    cursor: pointer;
+}
+.toggle input::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: #151412;
+    transition: transform 140ms;
+}
+.toggle input:checked {
+    background: #d4ff2a;
+}
+.toggle input:checked::after {
+    transform: translateX(18px);
+}
+
+.btn {
+    height: 36px;
+    padding: 0 14px;
+    background: #d4ff2a;
+    color: #151412;
+    border: 2px solid #151412;
+    box-shadow: 3px 3px 0 #151412;
+    font: 800 14px 'Archivo', system-ui, sans-serif;
+}
+.btn--plain {
+    background: #f7f4ec;
+}
+.btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+.key {
+    font: 10px ui-monospace, Consolas, monospace;
+    color: #4a4740;
+}
+:focus-visible {
+    outline: 3px solid #ff4a1c;
+    outline-offset: 2px;
+}

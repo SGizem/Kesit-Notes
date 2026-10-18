@@ -1,0 +1,756 @@
+/* ── Dosyalar: raf ─────────────────────────────────────────────────── */
+
+.files {
+    position: relative;
+    min-height: 100vh;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 28px 40px 80px;
+}
+.files__head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 6px 24px;
+    padding-bottom: 18px;
+    margin-bottom: 34px;
+    border-top: 6px solid var(--rule);
+    border-bottom: var(--bw) solid var(--rule);
+    padding-top: 18px;
+}
+.files__h {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 900;
+    font-stretch: 125%;
+    letter-spacing: -0.045em;
+    line-height: 0.85;
+    text-transform: uppercase;
+}
+.files__sub {
+    grid-column: 1;
+    font-family: var(--f-read);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-2);
+}
+.files__actions {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.files__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 10px;
+    width: 240px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+}
+.files__search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+
+.dropzone {
+    display: grid;
+    place-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 80px 20px;
+    border: 3px dashed var(--rule);
+    background: var(--sheet);
+    text-align: center;
+}
+.dropzone:hover {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+.dropzone__big {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900;
+    font-stretch: 115%;
+    letter-spacing: -0.02em;
+}
+
+.dropveil {
+    position: fixed;
+    inset: 0;
+    left: var(--rail-w);
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--hi) 88%, transparent);
+    border: 6px dashed var(--ink);
+    pointer-events: none;
+}
+.dropveil p {
+    font-size: clamp(36px, 6vw, 84px);
+    font-weight: 900;
+    font-stretch: 120%;
+    letter-spacing: -0.03em;
+    color: #151412;
+}
+
+/* Kâğıt sayfa kartı, köşesi kıvrık, türü damga gibi basılı */
+.shelf {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px;
+}
+.shelf__none {
+    grid-column: 1 / -1;
+    font-family: var(--f-read);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--ink-2);
+}
+.doc {
+    --k: var(--ink);
+    --k-ink: var(--paper);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 250px;
+    padding: 18px 18px 16px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 160ms var(--ease), box-shadow 160ms var(--ease);
+}
+.doc[data-kind='pdf'] { --k: var(--act); --k-ink: #fff; }
+.doc[data-kind='xlsx'],
+.doc[data-kind='csv'] { --k: var(--hi); --k-ink: #151412; }
+.doc[data-kind='md'] { --k: var(--m-violet); --k-ink: #151412; }
+.doc[data-kind='txt'] { --k: var(--paper-2); --k-ink: var(--ink); }
+.doc:hover {
+    transform: translate(-2px, -2px) rotate(-0.4deg);
+    box-shadow: var(--shadow-lift);
+}
+/* kıvrık köşe */
+.doc::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(225deg, var(--paper) 0 50%, var(--paper-2) 50% 100%);
+    border-left: var(--bw) solid var(--rule);
+    border-bottom: var(--bw) solid var(--rule);
+}
+.doc__kind {
+    align-self: flex-start;
+    padding: 3px 8px;
+    background: var(--k);
+    color: var(--k-ink);
+    border: var(--bw) solid var(--rule);
+    font-size: 12px;
+    font-weight: 700;
+}
+.doc__name {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.doc__meta {
+    font-size: 10px;
+    color: var(--ink-3);
+}
+.doc__foot {
+    margin-top: auto;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.doc__chip {
+    padding: 2px 6px;
+    border: 1.5px solid var(--rule);
+    font-size: 10px;
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+.doc__chip--edit {
+    background: transparent;
+    color: var(--ink);
+    border-style: dashed;
+}
+/* sayfadaki satırlar: kâğıt hissi */
+.doc__name::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 54px;
+    height: 44px;
+    background: repeating-linear-gradient(var(--rule-soft) 0 1px, transparent 1px 11px);
+    pointer-events: none;
+}
+
+/* ── Dosya ekranı ──────────────────────────────────────────────────── */
+
+.viewer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+}
+.viewer.with-drawer {
+    grid-template-columns: minmax(0, 1fr) 300px;
+}
+.viewer__head {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-bottom: var(--bw) solid var(--rule);
+    background: var(--paper);
+    min-width: 0;
+}
+.viewer__kind {
+    --k: var(--ink);
+    --k-ink: var(--paper);
+    padding: 3px 8px;
+    background: var(--k);
+    color: var(--k-ink);
+    border: var(--bw) solid var(--rule);
+    font-size: 11px;
+    font-weight: 700;
+    flex: none;
+}
+.viewer__kind[data-kind='pdf'] { --k: var(--act); --k-ink: #fff; }
+.viewer__kind[data-kind='xlsx'],
+.viewer__kind[data-kind='csv'] { --k: var(--hi); --k-ink: #151412; }
+.viewer__kind[data-kind='md'] { --k: var(--m-violet); --k-ink: #151412; }
+.viewer__kind[data-kind='txt'] { --k: var(--paper-2); --k-ink: var(--ink); }
+.viewer__name {
+    min-width: 0;
+    max-width: 40vw;
+    padding: 4px 6px;
+    border: var(--bw) solid transparent;
+    background: transparent;
+    font-size: 18px;
+    font-weight: 800;
+    outline: none;
+}
+.viewer__name:hover,
+.viewer__name:focus {
+    border-color: var(--rule);
+    background: var(--sheet);
+}
+.viewer__meta {
+    font-size: 10px;
+    color: var(--ink-3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.viewer__spacer {
+    flex: 1;
+}
+.viewer__body {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.viewer__drawer {
+    min-height: 0;
+}
+.viewer__missing,
+.viewer__error {
+    display: grid;
+    gap: 18px;
+    justify-items: start;
+    padding: 48px;
+    font-family: var(--f-read);
+    font-size: 20px;
+    font-style: italic;
+}
+
+.mini--file {
+    cursor: default;
+}
+.mini--file .mini__body {
+    text-align: left;
+    padding-left: 6px;
+}
+.mini--file .mini__text {
+    white-space: pre-line; /* tablodan alınan kesitlerde satırlar */
+}
+.mini--file[data-on] {
+    box-shadow: 3px 3px 0 var(--act);
+    border-color: var(--act);
+}
+.mini__cmt {
+    margin-top: 4px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--ink-2);
+}
+
+/* İndir menüsü */
+.menu {
+    position: relative;
+}
+.menu__list {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 30;
+    min-width: 230px;
+    padding: 6px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    box-shadow: var(--shadow);
+}
+.menu__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+.menu__item:hover {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+
+/* ── Seçimi kes şeridi ─────────────────────────────────────────────── */
+
+.cutbar {
+    position: fixed;
+    z-index: 45;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 10px 6px 12px;
+    background: #151412;
+    color: #ece8dc;
+    border: 2px solid #151412;
+    box-shadow: 4px 4px 0 var(--hi);
+    animation: drop 160ms var(--ease);
+}
+.cutbar__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 4px;
+    font-weight: 800;
+    font-size: 13px;
+}
+.cutbar .swatch {
+    width: 20px;
+    height: 20px;
+    border-color: #ece8dc;
+}
+.cutbar .swatch:hover {
+    transform: scale(1.18);
+}
+
+/* ── Uygulama içi fosfor (PDF, editör) ─────────────────────────────── */
+
+::highlight(kesit-lime) { background-color: rgba(212, 255, 42, 0.75); color: #151412; }
+::highlight(kesit-orange) { background-color: rgba(255, 154, 31, 0.7); color: #151412; }
+::highlight(kesit-pink) { background-color: rgba(255, 79, 163, 0.55); color: #151412; }
+::highlight(kesit-violet) { background-color: rgba(167, 123, 255, 0.6); color: #151412; }
+::highlight(kesit-focus) { background-color: var(--act); color: #fff; }
+
+/* PDF'te yazı tuvalde; metin katmanı şeffaf kalmalı, sadece renk görünsün */
+.textLayer ::highlight(kesit-lime) { background-color: rgba(212, 255, 42, 0.5); color: transparent; }
+.textLayer ::highlight(kesit-orange) { background-color: rgba(255, 154, 31, 0.45); color: transparent; }
+.textLayer ::highlight(kesit-pink) { background-color: rgba(255, 79, 163, 0.4); color: transparent; }
+.textLayer ::highlight(kesit-violet) { background-color: rgba(167, 123, 255, 0.45); color: transparent; }
+.textLayer ::highlight(kesit-focus) { background-color: rgba(255, 74, 28, 0.5); color: transparent; }
+
+/* ── PDF ───────────────────────────────────────────────────────────── */
+
+.pdf {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
+.pdf__bar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 16px;
+    border-bottom: 1px solid var(--rule-soft);
+}
+.pdf__spacer {
+    flex: 1;
+}
+.pdf__zoom {
+    min-width: 46px;
+    text-align: center;
+}
+.pdf__scroll {
+    flex: 1;
+    overflow: auto;
+    background: var(--paper-2);
+}
+.pdf__pages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 28px 32px 80px;
+    width: max-content;
+    min-width: 100%;
+}
+.pdf-page {
+    position: relative;
+    background: #fff;
+    border: var(--bw) solid #151412;
+    box-shadow: var(--shadow);
+    box-sizing: content-box;
+}
+.pdf-page canvas {
+    display: block;
+}
+.pdf-page__n {
+    position: absolute;
+    left: -2px;
+    bottom: -24px;
+    font-size: 10px;
+    color: var(--ink-3);
+}
+
+/* pdf.js metin katmanı (pdf_viewer.css'ten gerekli kısım) */
+.textLayer {
+    position: absolute;
+    text-align: initial;
+    inset: 0;
+    overflow: clip;
+    opacity: 1;
+    line-height: 1;
+    text-size-adjust: none;
+    forced-color-adjust: none;
+    transform-origin: 0 0;
+    caret-color: CanvasText;
+    z-index: 0;
+    --min-font-size: 1;
+    --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+    --min-font-size-inv: calc(1 / var(--min-font-size));
+}
+.textLayer :is(span, br) {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    cursor: text;
+    transform-origin: 0% 0%;
+}
+.textLayer > :not(.markedContent),
+.textLayer .markedContent span:not(.markedContent) {
+    z-index: 1;
+    --font-height: 0;
+    font-size: calc(var(--text-scale-factor) * var(--font-height));
+    --scale-x: 1;
+    --rotate: 0deg;
+    transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));
+}
+.textLayer .markedContent {
+    display: contents;
+}
+.textLayer span[role='img'] {
+    user-select: none;
+    cursor: default;
+}
+.textLayer ::selection {
+    background: rgba(212, 255, 42, 0.55);
+    color: transparent;
+}
+.textLayer br::selection {
+    background: transparent;
+}
+.textLayer .endOfContent {
+    display: block;
+    position: absolute;
+    inset: 100% 0 0;
+    z-index: 0;
+    cursor: default;
+    user-select: none;
+}
+.textLayer.selecting .endOfContent {
+    top: 0;
+}
+
+/* ── Word / Markdown / metin ───────────────────────────────────────── */
+
+.docview {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+.toolbar--doc {
+    border-bottom: 1px solid var(--rule-soft);
+}
+.sheet--doc {
+    flex: 1;
+    overflow: auto;
+}
+.sheet--plain .tiptap,
+.tiptap.tiptap--plain {
+    font-family: var(--f-mono);
+    font-size: 14px;
+    line-height: 1.6;
+}
+.sheet--plain .tiptap > * + * {
+    margin-top: 0;
+}
+.sheet--plain .tiptap p:empty::after,
+.sheet--plain .tiptap p > br.ProseMirror-trailingBreak:only-child {
+    content: ' ';
+}
+
+/* ── Excel / CSV ───────────────────────────────────────────────────── */
+
+.sheetview {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+.sheetbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--rule-soft);
+}
+.sheetbar__ref {
+    min-width: 72px;
+    padding: 4px 8px;
+    border: var(--bw) solid var(--rule);
+    background: var(--sheet);
+    font-weight: 700;
+    text-align: center;
+}
+.sheetbar__value {
+    flex: 1 1 200px;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: var(--f-mono);
+    font-size: 13px;
+}
+.sheetbar__value i {
+    color: var(--ink-3);
+}
+.sheetbar__spacer {
+    flex: 1;
+}
+.sheetbar__cut {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 6px;
+    padding: 4px 8px 4px 10px;
+    background: #151412;
+    color: #ece8dc;
+    font-weight: 800;
+    font-size: 13px;
+}
+.sheetbar__cut .swatch {
+    width: 16px;
+    height: 16px;
+    border-color: #ece8dc;
+}
+
+.grid {
+    flex: 1;
+    overflow: auto;
+    outline: none;
+    background: var(--sheet);
+}
+.grid:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--act);
+}
+.grid__table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+    user-select: none;
+}
+.grid__table th,
+.grid__table td {
+    height: 28px;
+    border-right: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    white-space: nowrap;
+}
+.grid__table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    min-width: 112px;
+    background: var(--paper);
+    border-bottom: var(--bw) solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: s-resize;
+}
+.grid__table tbody th {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    min-width: 48px;
+    padding: 0 8px;
+    background: var(--paper);
+    border-right: var(--bw) solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-2);
+    text-align: right;
+    cursor: e-resize;
+}
+.grid__table .grid__corner {
+    left: 0;
+    z-index: 3;
+    min-width: 48px;
+    border-right: var(--bw) solid var(--rule);
+}
+.grid__table th.on {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+.grid__table td {
+    max-width: 280px;
+    padding: 0 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: cell;
+}
+.grid__table td.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+.grid__table td.fx {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--ink-2);
+}
+.grid__table td.sel {
+    background: color-mix(in srgb, var(--hi) 30%, transparent);
+}
+.grid__table td.cur {
+    box-shadow: inset 0 0 0 2px var(--ink);
+}
+.grid__table td:has(.grid__input) {
+    padding: 0;
+    overflow: visible;
+}
+.grid__input {
+    width: 100%;
+    min-width: 112px;
+    height: 28px;
+    padding: 0 7px;
+    border: 2px solid var(--act);
+    background: var(--sheet);
+    outline: none;
+    font: inherit;
+}
+.grid__more {
+    margin: 14px 16px 24px;
+}
+
+.tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 16px;
+    border-top: var(--bw) solid var(--rule);
+    background: var(--paper);
+    overflow-x: auto;
+}
+.tabs__tab {
+    padding: 7px 14px;
+    border-right: 1px solid var(--rule-soft);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.tabs__tab[aria-selected='true'] {
+    background: var(--sheet);
+    box-shadow: inset 0 -4px 0 var(--hi), inset 0 -6px 0 var(--ink);
+}
+.tabs__tab--add {
+    display: grid;
+    place-items: center;
+}
+.tabs__hint {
+    margin-left: auto;
+    align-self: center;
+    padding-left: 16px;
+    font-size: 10px;
+    color: var(--ink-3);
+    white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+    .viewer.with-drawer {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr 220px;
+    }
+    .viewer__drawer {
+        border-left: 0;
+        border-top: var(--bw) solid var(--rule);
+    }
+}
+@media (max-width: 720px) {
+    .files {
+        padding: 20px 16px 60px;
+    }
+    .files__head {
+        grid-template-columns: 1fr;
+    }
+    .files__actions {
+        grid-column: 1;
+        grid-row: auto;
+        flex-wrap: wrap;
+    }
+    .files__search {
+        width: 100%;
+    }
+    .viewer {
+        height: calc(100vh - 62px);
+    }
+    .viewer__meta {
+        display: none;
+    }
+    .viewer__name {
+        max-width: 38vw;
+    }
+    .dropveil {
+        left: 0;
+    }
+    .pdf__pages {
+        padding: 16px 12px 60px;
+    }
+}

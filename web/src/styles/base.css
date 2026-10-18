@@ -1,0 +1,239 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    background-color: var(--paper);
+    /* Gazete kâğıdı lifi: çok hafif gren */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color: var(--ink);
+    font-family: var(--f-ui);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+:focus-visible {
+    outline: 3px solid var(--act);
+    outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--ink);
+    border: 3px solid var(--paper);
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ── Ortak parçalar ─────────────────────────────────────────────────── */
+
+.mono {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* İmza öğe: elle çekilmiş fosforlu kalem şeridi */
+.mark {
+    --mk: var(--m-lime);
+    color: #151412;
+    background-image: linear-gradient(
+        100deg,
+        transparent 0.15em,
+        var(--mk) 0.3em,
+        var(--mk) calc(100% - 0.35em),
+        transparent calc(100% - 0.1em)
+    );
+    background-size: 100% 78%;
+    background-position: 0 62%;
+    background-repeat: no-repeat;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    padding: 0.05em 0.3em;
+    margin: 0 -0.1em;
+}
+.mark[data-c='orange'] { --mk: var(--m-orange); }
+.mark[data-c='pink'] { --mk: var(--m-pink); }
+.mark[data-c='violet'] { --mk: var(--m-violet); }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    border: var(--bw) solid var(--rule);
+    border-radius: var(--r);
+    background: var(--sheet);
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 3px 3px 0 var(--rule);
+    transition: transform 120ms var(--ease), box-shadow 120ms var(--ease);
+    white-space: nowrap;
+}
+.btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--rule);
+}
+.btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--rule);
+}
+.btn--hi {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+.btn--act {
+    background: var(--act);
+    color: var(--act-ink);
+}
+.btn--ghost {
+    box-shadow: none;
+    border-color: transparent;
+    background: transparent;
+}
+.btn--ghost:hover {
+    box-shadow: none;
+    border-color: var(--rule);
+}
+.btn--sm {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 13px;
+}
+
+.icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: var(--bw) solid transparent;
+    border-radius: var(--r);
+    color: var(--ink);
+}
+.icon-btn:hover {
+    border-color: var(--rule);
+    background: var(--sheet);
+}
+
+.field {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: var(--bw) solid var(--rule);
+    border-radius: var(--r);
+    background: var(--sheet);
+    outline: none;
+}
+.field:focus {
+    box-shadow: 3px 3px 0 var(--act);
+}
+.field::placeholder {
+    color: var(--ink-3);
+}
+
+.swatch {
+    width: 18px;
+    height: 18px;
+    border: var(--bw) solid var(--rule);
+    border-radius: 50%;
+    background: var(--mk, var(--m-lime));
+    flex: none;
+}
+.swatch[data-c='lime'] { --mk: var(--m-lime); }
+.swatch[data-c='orange'] { --mk: var(--m-orange); }
+.swatch[data-c='pink'] { --mk: var(--m-pink); }
+.swatch[data-c='violet'] { --mk: var(--m-violet); }
+.swatch[aria-pressed='true'] {
+    box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--rule);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* Tema geçişi: View Transitions varsa silindir animasyonu JS'te (useTheme.ts);
+   varsayılan çapraz solmayı kapatıyoruz ki eski/yeni görüntü üst üste binmesin. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+    z-index: 2;
+}
+
+/* View Transitions olmayan tarayıcılar için yedek: renkler yumuşak geçsin. */
+.theme-fade,
+.theme-fade *,
+.theme-fade *::before,
+.theme-fade *::after {
+    transition:
+        background-color 400ms ease,
+        color 400ms ease,
+        border-color 400ms ease,
+        box-shadow 400ms ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}

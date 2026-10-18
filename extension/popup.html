@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="ui.css" />
+        <link rel="stylesheet" href="popup.css" />
+    </head>
+    <body>
+        <header class="head">
+            <img src="icons/icon-32.png" alt="" />
+            <h1>Kesit</h1>
+            <span id="pending" class="pending" hidden></span>
+        </header>
+        <label class="toggle">
+            <span>
+                <b>Sayfalarda göster</b>
+                <small>Kesit aldığın sayfaya dönünce cümleler fosforlu kalsın · <a id="privacy" href="#">Gizlilik</a></small>
+            </span>
+            <input id="marks" type="checkbox" />
+        </label>
+        <ul id="recent" class="list"></ul>
+        <p id="empty" class="empty" hidden>
+            Henüz kesit yok.<br />Bir metni seç → sağ tıkla → <b>Kesit’e kaydet</b>.
+        </p>
+        <footer class="foot">
+            <button id="open" class="btn">Masayı aç →</button>
+            <button id="panel" class="btn btn--plain">Yan panel</button>
+            <span class="key">Alt+Shift+K</span>
+        </footer>
+        <script src="ui.js"></script>
+        <script src="popup.js"></script>
+    </body>
+</html>

@@ -1,0 +1,515 @@
+/* ── Notlar: fişlik + kâğıt ─────────────────────────────────────────── */
+
+.notes {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    height: 100vh;
+}
+
+.notes__index {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border-right: var(--bw) solid var(--rule);
+    background: var(--paper-2);
+}
+.notes__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 18px 14px;
+}
+.notes__h {
+    font-size: 34px;
+    font-weight: 900;
+    font-stretch: 120%;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+.notes__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 18px 14px;
+    height: 36px;
+    padding: 0 10px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+}
+.notes__search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.notes__list {
+    list-style: none;
+    flex: 1;
+    overflow: auto;
+    border-top: var(--bw) solid var(--rule);
+}
+
+/* Fiş satırı */
+.card-row {
+    display: grid;
+    gap: 3px;
+    padding: 14px 18px 12px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-soft);
+    background-image: linear-gradient(var(--rule-soft) 1px, transparent 1px);
+    background-size: 100% 22px;
+    background-position: 0 34px;
+}
+.card-row:hover {
+    background-color: var(--sheet);
+}
+.card-row.active {
+    background-color: var(--hi);
+    color: var(--hi-ink);
+    box-shadow: inset 6px 0 0 var(--ink);
+}
+.card-row__title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 800;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.card-row__preview {
+    font-family: var(--f-read);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-2);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.card-row.active .card-row__preview,
+.card-row.active .card-row__meta {
+    color: #151412;
+}
+.card-row__meta {
+    font-size: 10px;
+    color: var(--ink-3);
+}
+.notes__empty-list {
+    padding: 22px 18px;
+    font-family: var(--f-read);
+    font-style: italic;
+    color: var(--ink-2);
+}
+
+.notes__sheet {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+.notes__blank {
+    display: grid;
+    place-content: center;
+    justify-items: start;
+    gap: 24px;
+    height: 100%;
+    padding: 40px;
+}
+.notes__blank-big {
+    font-size: clamp(34px, 4.5vw, 60px);
+    font-weight: 900;
+    font-stretch: 115%;
+    letter-spacing: -0.03em;
+    line-height: 1.04;
+}
+.notes__missing {
+    padding: 40px;
+    font-family: var(--f-read);
+    font-style: italic;
+    font-size: 20px;
+}
+
+/* ── Editör ─────────────────────────────────────────────────────────── */
+
+.editor-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+}
+.editor-wrap.with-drawer {
+    grid-template-columns: minmax(0, 1fr) 320px;
+}
+.editor-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 8px 16px;
+    border-bottom: var(--bw) solid var(--rule);
+    background: var(--paper);
+}
+.toolbar .icon-btn[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+}
+.tool-txt {
+    font-size: 12px;
+    font-weight: 900;
+}
+.toolbar__sep {
+    width: 1px;
+    height: 20px;
+    margin: 0 6px;
+    background: var(--rule-soft);
+}
+.toolbar__spacer {
+    flex: 1;
+}
+.toolbar__state {
+    margin-right: 8px;
+    color: var(--ink-3);
+    font-size: 10px;
+}
+.toolbar .btn {
+    margin-left: 6px;
+}
+
+.sheet {
+    flex: 1;
+    overflow: auto;
+    padding: 48px clamp(20px, 6vw, 88px) 120px;
+}
+.sheet > * {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.sheet__title {
+    display: block;
+    width: 100%;
+    border: 0;
+    outline: none;
+    resize: none;
+    background: transparent;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 900;
+    font-stretch: 112%;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    field-sizing: content;
+    margin-bottom: 26px;
+    padding-bottom: 18px;
+    border-bottom: var(--bw) solid var(--rule);
+}
+.sheet__title::placeholder {
+    color: var(--ink-3);
+}
+
+/* ProseMirror içerik */
+.sheet__body .tiptap {
+    outline: none;
+    font-family: var(--f-read);
+    font-size: 19px;
+    line-height: 1.65;
+    font-variation-settings: 'opsz' 18;
+    min-height: 40vh;
+}
+.tiptap > * + * {
+    margin-top: 0.7em;
+}
+.tiptap h1,
+.tiptap h2,
+.tiptap h3 {
+    font-family: var(--f-ui);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-top: 1.4em;
+}
+.tiptap h1 {
+    font-size: 32px;
+    font-stretch: 112%;
+}
+.tiptap h2 {
+    font-size: 24px;
+}
+.tiptap h3 {
+    font-size: 19px;
+}
+.tiptap ul,
+.tiptap ol {
+    padding-left: 1.4em;
+}
+.tiptap li + li {
+    margin-top: 0.25em;
+}
+.tiptap a {
+    color: inherit;
+    text-decoration-color: var(--act);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+.tiptap mark {
+    color: #151412;
+    background: linear-gradient(100deg, transparent 0.1em, var(--m-lime) 0.25em, var(--m-lime) calc(100% - 0.25em), transparent calc(100% - 0.05em));
+    background-size: 100% 80%;
+    background-position: 0 60%;
+    background-repeat: no-repeat;
+    padding: 0 0.2em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+.tiptap blockquote {
+    margin-left: 0;
+    padding: 6px 0 6px 20px;
+    border-left: 5px solid var(--ink);
+}
+.tiptap blockquote p:has(> a:only-child) {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+}
+.tiptap blockquote p:has(> a:only-child) a {
+    color: var(--ink-2);
+    text-decoration: none;
+}
+.tiptap img {
+    max-width: 100%;
+    border: var(--bw) solid var(--rule);
+}
+.tiptap code {
+    font-family: var(--f-mono);
+    font-size: 0.85em;
+    background: var(--paper-2);
+    padding: 1px 5px;
+}
+.tiptap pre {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 18px;
+    border-radius: var(--r);
+    overflow-x: auto;
+}
+.tiptap pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+.tiptap hr {
+    border: 0;
+    border-top: var(--bw) solid var(--rule);
+    margin: 2em 0;
+}
+.tiptap ul[data-type='taskList'] {
+    list-style: none;
+    padding-left: 0;
+}
+.tiptap ul[data-type='taskList'] li {
+    display: flex;
+    gap: 10px;
+}
+.tiptap ul[data-type='taskList'] li > label {
+    flex: none;
+    padding-top: 0.2em;
+}
+.tiptap ul[data-type='taskList'] input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ink);
+}
+.tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
+    text-decoration: line-through;
+    color: var(--ink-3);
+}
+.tiptap p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+    color: var(--ink-3);
+    font-style: italic;
+}
+.ProseMirror-selectednode {
+    outline: 3px solid var(--act);
+}
+.ProseMirror-dropcursor,
+.prosemirror-dropcursor-block {
+    background: var(--act) !important;
+}
+
+/* ── Kesit çekmecesi ────────────────────────────────────────────────── */
+
+.drawer {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+    border-left: var(--bw) solid var(--rule);
+    background: var(--paper-2);
+}
+.drawer__head {
+    padding: 16px 16px 12px;
+    border-bottom: var(--bw) solid var(--rule);
+}
+.drawer__title {
+    font-weight: 900;
+    font-size: 20px;
+    font-stretch: 115%;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+.drawer__hint {
+    color: var(--ink-3);
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+.drawer__search {
+    height: 34px;
+}
+.drawer__list {
+    list-style: none;
+    flex: 1;
+    overflow: auto;
+    overflow-x: hidden;
+    padding: 12px;
+    display: grid;
+    /* Sütun genişliği içerikten değil panelden gelsin: uzun dosya adları taşırmasın. */
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: 10px;
+}
+.drawer__empty {
+    font-family: var(--f-read);
+    font-style: italic;
+    color: var(--ink-2);
+    padding: 8px 4px;
+}
+
+.mini {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 10px 6px 10px 4px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    cursor: grab;
+}
+.mini:hover {
+    box-shadow: 3px 3px 0 var(--rule);
+}
+.mini:active {
+    cursor: grabbing;
+}
+.mini__grip {
+    flex: none;
+    color: var(--ink-3);
+    margin-top: 2px;
+}
+.mini__body {
+    flex: 1;
+    min-width: 0;
+}
+.mini__meta {
+    font-size: 9px;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.mini__text {
+    font-family: var(--f-read);
+    font-size: 14px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.mini__img {
+    width: 100%;
+    max-height: 90px;
+    object-fit: cover;
+    border: 1.5px solid var(--rule);
+    pointer-events: none;
+}
+.mini__add {
+    flex: none;
+    border-color: var(--rule);
+}
+
+@media (max-width: 1100px) {
+    .editor-wrap.with-drawer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 260px;
+    }
+    .drawer {
+        border-left: 0;
+        border-top: var(--bw) solid var(--rule);
+    }
+}
+@media (max-width: 720px) {
+    .notes {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100%;
+    }
+    .notes__index {
+        max-height: 40vh;
+        border-right: 0;
+        border-bottom: var(--bw) solid var(--rule);
+    }
+    .notes:has(.editor-wrap) .notes__index {
+        display: none;
+    }
+    .sheet {
+        padding: 28px 16px 80px;
+    }
+}
+
+/* Tablolar (Word'den gelenler dahil) */
+.tiptap .tableWrapper {
+    overflow-x: auto;
+    margin: 1em 0;
+}
+.tiptap table {
+    border-collapse: collapse;
+    min-width: 100%;
+    font-size: 0.85em;
+    line-height: 1.4;
+}
+.tiptap th,
+.tiptap td {
+    border: 1.5px solid var(--rule);
+    padding: 6px 10px;
+    vertical-align: top;
+    min-width: 60px;
+}
+.tiptap th {
+    background: var(--paper-2);
+    font-family: var(--f-ui);
+    font-weight: 800;
+    text-align: left;
+}
+.tiptap td > p,
+.tiptap th > p {
+    margin: 0;
+}
+.tiptap td > * + *,
+.tiptap th > * + * {
+    margin-top: 0.3em;
+}
+.tiptap .selectedCell {
+    background: color-mix(in srgb, var(--hi) 35%, transparent);
+}

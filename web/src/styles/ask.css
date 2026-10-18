@@ -1,0 +1,352 @@
+/* ── Kesit'e sor ───────────────────────────────────────────────────── */
+
+.ask {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    height: 100vh;
+}
+.ask__index {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border-right: var(--bw) solid var(--rule);
+    background: var(--paper-2);
+}
+.ask__index .notes__list {
+    border-top: var(--bw) solid var(--rule);
+}
+.ask__row {
+    position: relative;
+}
+.ask__del {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    opacity: 0;
+}
+.ask__row:hover .ask__del,
+.ask__del:focus-visible {
+    opacity: 1;
+}
+
+.ask__main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+}
+.ask__scroll {
+    flex: 1;
+    overflow: auto;
+    padding: 36px clamp(16px, 5vw, 64px) 40px;
+}
+.ask__scroll > * {
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.setup {
+    margin-bottom: 28px;
+}
+.setup .banner__head {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 16px;
+}
+
+/* Karşılama */
+.welcome {
+    padding-top: 6vh;
+}
+.welcome__title {
+    font-size: clamp(48px, 7vw, 92px);
+    font-weight: 900;
+    font-stretch: 120%;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin-bottom: 20px;
+}
+.welcome__sub {
+    max-width: 56ch;
+    font-family: var(--f-read);
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-bottom: 30px;
+}
+.welcome__examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.example {
+    padding: 10px 14px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    box-shadow: 3px 3px 0 var(--rule);
+    font-family: var(--f-read);
+    font-size: 16px;
+    font-style: italic;
+    text-align: left;
+    transition: transform 120ms var(--ease), box-shadow 120ms var(--ease), background 120ms;
+}
+.example:hover {
+    background: var(--hi);
+    color: var(--hi-ink);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--rule);
+}
+
+/* Soru-cevap */
+.thread {
+    display: grid;
+    gap: 44px;
+}
+.turn__q {
+    padding-top: 14px;
+    border-top: 4px solid var(--rule);
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+.turn__meta {
+    margin: 8px 0 18px;
+    color: var(--ink-3);
+    font-size: 10px;
+}
+.answer {
+    font-family: var(--f-read);
+    font-size: 20px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-variation-settings: 'opsz' 20;
+}
+.answer strong {
+    font-weight: 600;
+}
+.cites {
+    white-space: nowrap;
+}
+.cite {
+    display: inline-grid;
+    place-items: center;
+    min-width: 19px;
+    height: 19px;
+    margin: 0 1px 0 3px;
+    padding: 0 4px;
+    vertical-align: 0.35em;
+    background: var(--hi);
+    color: #151412;
+    border: 1.5px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+}
+.cite:hover {
+    background: var(--act);
+    color: #fff;
+}
+.caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.12em;
+    background: var(--hi);
+    border: 1.5px solid var(--rule);
+    animation: blink 900ms steps(2) infinite;
+}
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+.answer__wait {
+    margin-left: 10px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+}
+.turn__note {
+    margin-top: 10px;
+    color: var(--ink-3);
+}
+.turn__error {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--act);
+    color: var(--act-ink);
+    border: var(--bw) solid var(--rule);
+    font-weight: 700;
+}
+
+/* Kaynak kartları */
+.refs {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+}
+.ref {
+    display: flex;
+    min-width: 0;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+}
+.ref__n {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    background: var(--hi);
+    color: #151412;
+    border-right: var(--bw) solid var(--rule);
+    font-weight: 900;
+    font-size: 15px;
+}
+.ref__body {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    padding: 8px 10px;
+    text-decoration: none;
+}
+.ref__body:hover {
+    background: var(--paper-2);
+}
+.ref__title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ref__quote {
+    font-family: var(--f-read);
+    font-size: 14px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
+/* Soru kutusu */
+.composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 14px clamp(16px, 5vw, 64px) 18px;
+    border-top: var(--bw) solid var(--rule);
+    background: var(--paper);
+}
+.composer__input {
+    flex: 1;
+    max-width: 780px;
+    margin-left: auto;
+    min-height: 52px;
+    max-height: 200px;
+    padding: 13px 16px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    box-shadow: var(--shadow);
+    outline: none;
+    resize: none;
+    font-family: var(--f-read);
+    font-size: 19px;
+    line-height: 1.35;
+    field-sizing: content;
+}
+.composer__input:focus {
+    box-shadow: 4px 4px 0 var(--act);
+}
+.composer__input::placeholder {
+    color: var(--ink-3);
+    font-style: italic;
+}
+.composer .btn {
+    height: 52px;
+    margin-right: auto;
+}
+.setup__steps {
+    margin: 8px 0 0 18px;
+    display: grid;
+    gap: 4px;
+}
+.setup__steps a {
+    font-weight: 800;
+}
+
+/* Hangi motor cevaplıyor: yerel model / yapay zekasız */
+.engine {
+    order: -1;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    max-width: 170px;
+    font-size: 10px;
+    color: var(--ink-3);
+    white-space: nowrap;
+}
+.engine select {
+    max-width: 140px;
+    padding: 2px 0;
+    background: none;
+    border: 0;
+    border-bottom: 1.5px solid var(--rule);
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+}
+.engine__dot {
+    flex: none;
+    width: 9px;
+    height: 9px;
+    border: 1.5px solid var(--rule);
+    background: var(--paper-2);
+}
+.engine__dot--ollama,
+.engine__dot--lmstudio,
+.engine__dot--claude {
+    background: var(--hi);
+}
+.composer .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+    .ask {
+        grid-template-columns: 1fr;
+    }
+    .ask__index {
+        display: none;
+    }
+}
+@media (max-width: 720px) {
+    .ask {
+        height: calc(100vh - 62px);
+    }
+    .answer {
+        font-size: 18px;
+    }
+    .composer .btn {
+        padding: 0 12px;
+    }
+}

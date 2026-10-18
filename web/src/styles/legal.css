@@ -1,0 +1,65 @@
+/* ── Gizlilik ve benzeri düz metin sayfaları ───────────────────────── */
+
+.legal {
+    max-width: 760px;
+    padding: 48px clamp(16px, 5vw, 64px) 80px;
+    font-family: var(--f-read);
+    font-size: 19px;
+    line-height: 1.6;
+}
+.legal__kicker {
+    color: var(--ink-3);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.legal__title {
+    margin: 10px 0 22px;
+    font-family: var(--f-ui);
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 900;
+    font-stretch: 120%;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+}
+.legal__lead {
+    padding: 14px 18px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    box-shadow: var(--shadow);
+    font-size: 21px;
+}
+.legal h2 {
+    margin: 40px 0 12px;
+    padding-top: 12px;
+    border-top: 4px solid var(--rule);
+    font-family: var(--f-ui);
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+}
+.legal ul {
+    display: grid;
+    gap: 10px;
+    padding-left: 22px;
+}
+.legal__perms dt {
+    margin-top: 14px;
+    font-family: var(--f-ui);
+    font-size: 15px;
+    font-weight: 800;
+}
+.legal__perms dd {
+    margin: 2px 0 0;
+}
+.legal kbd {
+    padding: 0 5px;
+    border: 1.5px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.75em;
+}
+.legal__en {
+    margin-top: 48px;
+    color: var(--ink-2);
+    font-size: 16px;
+}

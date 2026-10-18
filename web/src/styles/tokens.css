@@ -1,0 +1,75 @@
+/* ─────────────────────────────────────────────────────────────────────
+   KESİT — "Fosforlu kalem & gazete kâğıdı"
+   Mavi yok, pastel yok, bulanık gölge yok.
+   ───────────────────────────────────────────────────────────────────── */
+
+:root {
+    /* Kâğıt ve mürekkep */
+    --paper: #ece8dc;
+    --paper-2: #e3dece;
+    --sheet: #f7f4ec;
+    --ink: #151412;
+    --ink-2: #4a4740;
+    --ink-3: #8a8578;
+    --rule: #151412;
+    --rule-soft: rgba(21, 20, 18, 0.16);
+
+    /* Vurgular */
+    --hi: #d4ff2a;          /* fosforlu yeşil: ürünün kendisi */
+    --hi-ink: #151412;      /* fosforun üstündeki yazı */
+    --act: #ff4a1c;         /* vermilyon: eylem, uyarı */
+    --act-ink: #ffffff;
+
+    /* Fosforlu kalem kutusu */
+    --m-lime: #d4ff2a;
+    --m-orange: #ff9a1f;
+    --m-pink: #ff4fa3;
+    --m-violet: #a77bff;
+
+    /* Biçim */
+    --bw: 2px;
+    --shadow: 4px 4px 0 var(--ink);
+    --shadow-lift: 7px 7px 0 var(--ink);
+    --r: 3px;
+
+    /* Yazı */
+    --f-ui: 'Archivo Variable', 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+    --f-read: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+    --f-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+    --rail-w: 76px;
+    --ease: cubic-bezier(0.2, 0.9, 0.25, 1);
+
+    color-scheme: light;
+}
+
+/* Gece: mürekkep zemin, kâğıt yazı. Fosfor aynı kalır. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+        --paper: #151412;
+        --paper-2: #1d1c19;
+        --sheet: #201f1b;
+        --ink: #ece8dc;
+        --ink-2: #b9b4a6;
+        --ink-3: #7c776b;
+        --rule: #ece8dc;
+        --rule-soft: rgba(236, 232, 220, 0.14);
+        --shadow: 4px 4px 0 #000;
+        --shadow-lift: 7px 7px 0 #000;
+        color-scheme: dark;
+    }
+}
+
+:root[data-theme='dark'] {
+    --paper: #151412;
+    --paper-2: #1d1c19;
+    --sheet: #201f1b;
+    --ink: #ece8dc;
+    --ink-2: #b9b4a6;
+    --ink-3: #7c776b;
+    --rule: #ece8dc;
+    --rule-soft: rgba(236, 232, 220, 0.14);
+    --shadow: 4px 4px 0 #000;
+    --shadow-lift: 7px 7px 0 #000;
+    color-scheme: dark;
+}

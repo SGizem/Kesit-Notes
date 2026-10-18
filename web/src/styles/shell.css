@@ -1,0 +1,167 @@
+/* ── Kabuk: kitap sırtı gibi dikey ray + sayfa ─────────────────────── */
+
+.shell {
+    display: grid;
+    grid-template-columns: var(--rail-w) 1fr;
+    height: 100%;
+}
+
+.rail {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--ink);
+    color: var(--paper);
+    border-right: var(--bw) solid var(--rule);
+    z-index: 5;
+}
+
+.rail__logo {
+    display: grid;
+    place-items: center;
+    height: 76px;
+    border-bottom: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
+}
+.rail__logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.rail__nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Kitap sırtı: ikon üstte, etiket aşağıdan yukarı okunur */
+.spine {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 0 20px;
+    text-decoration: none;
+    color: var(--paper);
+    border-bottom: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
+    transition: background 140ms var(--ease), color 140ms var(--ease);
+}
+.spine__label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-stretch: 112%;
+}
+.spine:hover {
+    background: color-mix(in srgb, var(--paper) 10%, transparent);
+}
+.spine.active {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+.spine[aria-disabled='true'] {
+    opacity: 0.38;
+    pointer-events: none;
+}
+.spine__soon {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+}
+.spine__badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    display: grid;
+    place-items: center;
+    background: var(--act);
+    color: var(--act-ink);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 9px;
+}
+
+.rail__foot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 0;
+    border-top: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
+}
+.rail__foot .icon-btn {
+    color: var(--paper);
+}
+.rail__foot .icon-btn:hover {
+    background: transparent;
+    border-color: var(--paper);
+}
+
+.ext-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ink-3);
+    border: 2px solid var(--paper);
+}
+.ext-dot[data-s='connected'] {
+    background: var(--hi);
+}
+.ext-dot[data-s='missing'] {
+    background: var(--act);
+}
+
+.page {
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+/* Telefon: ray alta iner, yatay sekme çubuğu olur */
+@media (max-width: 720px) {
+    .shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+    }
+    .rail {
+        order: 2;
+        position: sticky;
+        bottom: 0;
+        top: auto;
+        height: auto;
+        flex-direction: row;
+        border-right: 0;
+        border-top: var(--bw) solid var(--rule);
+    }
+    .rail__logo,
+    .rail__foot {
+        display: none;
+    }
+    .rail__nav {
+        flex-direction: row;
+    }
+    .spine {
+        flex: 1;
+        padding: 10px 0;
+        gap: 4px;
+        border-bottom: 0;
+        border-right: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
+    }
+    .spine__label {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 10px;
+    }
+    .spine__soon {
+        display: none;
+    }
+}

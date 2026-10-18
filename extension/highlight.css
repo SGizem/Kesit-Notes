@@ -1,0 +1,17 @@
+/* Sayfadaki kesitler. Koyu sitelerde de okunsun diye yazı rengi sabit. */
+::highlight(kesit-lime) {
+    background-color: rgba(212, 255, 42, 0.75);
+    color: #151412;
+}
+::highlight(kesit-orange) {
+    background-color: rgba(255, 154, 31, 0.7);
+    color: #151412;
+}
+::highlight(kesit-pink) {
+    background-color: rgba(255, 79, 163, 0.55);
+    color: #151412;
+}
+::highlight(kesit-violet) {
+    background-color: rgba(167, 123, 255, 0.6);
+    color: #151412;
+}

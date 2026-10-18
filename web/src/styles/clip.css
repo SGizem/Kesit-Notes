@@ -1,0 +1,312 @@
+/* ── Kesit kartı: panoya bantla yapıştırılmış kâğıt şerit ───────────── */
+
+.clip {
+    --mk: var(--m-lime);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    break-inside: avoid;
+    margin: 0 0 26px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    transition: transform 160ms var(--ease), box-shadow 160ms var(--ease);
+}
+.clip[data-c='orange'] { --mk: var(--m-orange); }
+.clip[data-c='pink'] { --mk: var(--m-pink); }
+.clip[data-c='violet'] { --mk: var(--m-violet); }
+
+/* Bant parçası */
+.clip::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    width: 68px;
+    height: 20px;
+    background: var(--mk);
+    opacity: 0.88;
+    transform: translateX(-50%) rotate(-3deg);
+    clip-path: polygon(3% 0, 97% 4%, 100% 100%, 0 94%);
+}
+.clip:nth-child(even)::before {
+    transform: translateX(-40%) rotate(2.5deg);
+}
+
+.clip:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lift);
+}
+
+.clip__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 14px 10px;
+    color: var(--ink-2);
+    border-bottom: 1px dashed var(--rule-soft);
+}
+.clip__fav {
+    width: 14px;
+    height: 14px;
+}
+.clip__domain {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 700;
+    color: var(--ink);
+}
+.clip__time {
+    color: var(--ink-3);
+}
+
+.clip__img {
+    margin: 14px 14px 0;
+    border: var(--bw) solid var(--rule);
+    max-height: 320px;
+    object-fit: cover;
+}
+
+.clip__quote {
+    padding: 16px 16px 4px;
+    font-family: var(--f-read);
+    font-size: 19px;
+    line-height: 1.5;
+    font-variation-settings: 'opsz' 24;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+.clip__quote--link {
+    font-family: var(--f-mono);
+    font-size: 13px;
+}
+
+.clip__comment {
+    position: relative;
+    margin: 10px 16px 0;
+    padding-left: 22px;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--ink-2);
+}
+.clip__comment::before {
+    content: '↳';
+    position: absolute;
+    left: 0;
+    font-style: normal;
+    color: var(--act);
+    font-weight: 800;
+}
+
+.clip__context {
+    margin: 12px 16px 0;
+    padding: 12px;
+    background: var(--paper-2);
+    border-left: 4px solid var(--mk);
+    font-family: var(--f-read);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-2);
+}
+.clip__context .mark {
+    color: #151412;
+}
+
+/* Komut paletinden gelinen kart */
+.clip--flash {
+    animation: clip-flash 1.6s var(--ease) 2;
+}
+@keyframes clip-flash {
+    0%, 100% { box-shadow: var(--shadow); }
+    40% { box-shadow: 0 0 0 4px var(--act), var(--shadow-lift); }
+}
+
+/* Etiketler */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 16px 0;
+}
+.tag {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    border: 1.5px solid var(--rule);
+    border-radius: 2px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    background: var(--paper);
+}
+.tag__name {
+    padding: 0 4px 0 6px;
+    height: 100%;
+    font-weight: 700;
+}
+.tag__name:hover {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+.tag__x {
+    display: grid;
+    place-items: center;
+    width: 16px;
+    height: 100%;
+    opacity: 0;
+    border-left: 1px solid transparent;
+}
+.tag:hover .tag__x,
+.tag__x:focus-visible {
+    opacity: 1;
+    border-left-color: var(--rule-soft);
+}
+.tag__x:hover {
+    background: var(--act);
+    color: var(--act-ink);
+}
+.tag--add {
+    padding: 0 6px;
+    border-style: dashed;
+    color: var(--ink-3);
+    background: transparent;
+    opacity: 0;
+    transition: opacity 140ms var(--ease);
+}
+.clip:hover .tag--add,
+.tag--add:focus-visible {
+    opacity: 1;
+}
+@media (hover: none) {
+    .tag--add,
+    .tag__x {
+        opacity: 1;
+    }
+}
+.tag__input {
+    width: 96px;
+    height: 22px;
+    padding: 0 6px;
+    border: 1.5px solid var(--rule);
+    background: var(--sheet);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    outline: none;
+}
+.tags:empty {
+    display: none;
+}
+
+.clip__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 14px 10px 10px 16px;
+}
+.clip__title {
+    flex: 1 1 100%;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.clip__chip {
+    padding: 2px 6px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font-size: 10px;
+}
+.clip__actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+    opacity: 0.55;
+    transition: opacity 140ms var(--ease);
+}
+.clip:hover .clip__actions,
+.clip:focus-within .clip__actions {
+    opacity: 1;
+}
+.clip__swatches {
+    display: flex;
+    gap: 4px;
+    margin-right: 6px;
+}
+.clip__swatches .swatch {
+    width: 14px;
+    height: 14px;
+    border-width: 1.5px;
+}
+.icon-btn--danger {
+    background: var(--act);
+    color: var(--act-ink);
+    border-color: var(--rule);
+}
+.icon-btn[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+/* ── Not seçici ─────────────────────────────────────────────────────── */
+
+.clip__picker-anchor {
+    position: relative;
+}
+.picker {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 8px);
+    z-index: 20;
+    width: 250px;
+    max-height: 340px;
+    overflow: auto;
+    padding: 6px;
+    background: var(--sheet);
+    border: var(--bw) solid var(--rule);
+    box-shadow: var(--shadow);
+}
+.picker__head {
+    padding: 6px 8px;
+    color: var(--ink-3);
+}
+.picker__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 2px;
+}
+.picker__item:hover {
+    background: var(--hi);
+    color: var(--hi-ink);
+}
+.picker__item--new {
+    border-bottom: 1px dashed var(--rule-soft);
+    margin-bottom: 4px;
+}
+.picker__title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.picker__meta {
+    font-size: 10px;
+    color: var(--ink-3);
+}
+.picker__item:hover .picker__meta {
+    color: inherit;
+}

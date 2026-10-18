@@ -1,0 +1,17 @@
+body {
+    width: 340px;
+}
+#recent {
+    max-height: 340px;
+    overflow: auto;
+}
+.foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px 14px;
+    border-top: 2px solid #151412;
+}
+.foot .key {
+    margin-left: auto;
+}
