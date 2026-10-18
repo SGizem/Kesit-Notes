@@ -95,7 +95,8 @@ NewProjects/
 | **2** | Komut paleti (Ctrl+K), etiketler, sayfaya dönünce yeniden çizme, Chrome yan paneli, kesit dışa aktarma (Markdown) | ✅ |
 | **3** | Dosyalar: PDF (görüntüle + altını çiz → kesit), DOCX (düzenle + dışa aktar), XLSX (tablo düzenle), TXT/MD | ✅ |
 | **4** | Kesit'e sor: kendi kesitlerin üzerinden kaynaklı sohbet. Ücretsiz yerel yapay zeka (Ollama / LM Studio), yoksa yapay zekasız mod; Claude isteğe bağlı | ⏸ Şimdilik kapalı |
-| **5** | Hesap + cihazlar arası senkron, yayına alma, Chrome Web Store | ⏳ Sıradaki |
+| **5a** | Yayına alma: Cloudflare Pages + Edge Add-ons (ücretsiz) | 🔧 Hazır, hesap adımları bekliyor |
+| **5b** | Hesap + cihazlar arası senkron | ⏳ Sıradaki |
 
 ### Faz 1'de biten
 - **Eklenti:** Seçili metin, görsel, bağlantı ve sayfa sağ tıkla kaydediliyor. Kısayol `Alt+Shift+K`. Text-fragment bağlantısı ve bağlam paragrafı da saklanıyor. Sayfada çıkan kart üzerinden yorum ve renk eklenebiliyor. Uygulama kapalıyken kesitler kuyrukta bekliyor. Açılır pencerede son kesitler görünüyor.
@@ -150,3 +151,10 @@ Claude API ücretli olduğu için "Sor" artık varsayılan olarak **kullanıcın
 - **Cevap kalitesi (küçük model için):** Uzun kesitler baştan kırpılmıyor; soruyla en ilgili cümle ve devamı gönderiliyor. Aynı metin hem kesit hem not olarak kayıtlıysa bir kez gidiyor. Talimat özne karıştırmaya, sayı uydurmaya ve aynı olayı iki kez saymaya karşı yazıldı; sıcaklık 0,1. Kayıtlardan kurulmuş 5 soruluk ölçümde (her soru 3 kez) doğru cevap 6/15'ten 12/15'e çıktı, tekrarlı kaynak kartı 9'dan 0'a indi. Kalan hata: birden çok haberi birleştirip sayma gerektiren sorular ("kaç kez…").
 - **Ollama kuruldu:** Model, LM Studio'daki `gemma-3-4b` dosyasından üretildi (`ollama create gemma3:4b`), yeniden indirilmedi. Ollama'da ilk kelime ~2 sn, cevabın tamamı ~5 sn.
 - **Doğrulama:** Gerçek `gemma-3-4b` ile (LM Studio) 15 adımlı test geçti: atıf ayrıştırma, motor seçimi, Türkçe cevap ve atıflar, kayıtta olmayan soruya "bulamadım", Durdur, telefon. Faz 4 testi yapay zekasız mod için güncellendi (21/21); önceki fazlar da yeniden geçti (22 + 30 + 17).
+
+### Faz 5a: yayına alma (18 Ekim 2026)
+- **Kararlar:** Site Cloudflare Pages'te (ücretsiz, GitHub'dan otomatik yayın). Eklenti Edge Add-ons'ta (ücretsiz; Chrome Web Store 5 $ kayıt ücreti istediği için şimdilik yok). Hesap/senkron yayından sonra.
+- **Hazır olanlar:** Git deposu (`main`), `.node-version`, `web/public/_headers` (güvenlik + önbellek), `npm run ext:build -- ADRES` (eklentiyi yayındaki adrese bağlayan mağaza paketi), `/gizlilik` sayfası (uygulamada, komut paletinde ve eklenti penceresinde), Edge ilan metni ve görseller (`store/`), adım adım rehber (`docs/YAYIN.md`).
+- **Gizlilik için:** Yazı tipleri Google Fonts yerine sitenin içine alındı; uygulama açılışta hiçbir dış adrese istek atmıyor (testle doğrulandı) ve internetsiz de doğru yazı tipiyle açılıyor.
+- **Düzeltmeler:** Gece modunda "Hafızadan" kutusundaki fosfor yazılar açık zeminde okunmuyordu, kutu artık iki temada da koyu. Eklentiden belirli bir sayfa (örn. gizlilik) istendiğinde açık uygulama sekmesi bu sayfayı yok sayıyordu; artık yeni sekmede açılıyor.
+- **Doğrulama:** Yayın provası (derlenmiş site + mağaza paketinin aynısı) 8/8: doğrudan açılan alt sayfalar, yazı tipleri, dış istek yok, eklentinin bağlanması, sağ tıkla kesitin yayındaki masaya düşmesi. Önceki testler de yeniden geçti (Faz 1, 22 + 30 + 17, Sor kapalı 6/6).
