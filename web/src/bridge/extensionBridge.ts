@@ -101,6 +101,11 @@ function startMirror() {
 
 let started = false;
 
+/** Çıkışta: eklentideki kesit kopyasını boşalt; bir sonraki hesap öncekinin kesitlerini görmesin. */
+export function clearExtensionMirror() {
+    post('mirror', { clips: [] });
+}
+
 export function startBridge() {
     if (started) return;
     started = true;

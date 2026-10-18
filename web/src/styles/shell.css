@@ -127,6 +127,68 @@
 }
 
 /* Telefon: ray alta iner, yatay sekme çubuğu olur */
+/* Hesap */
+.acct {
+    position: relative;
+}
+.acct__btn {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    background: var(--hi);
+    color: #151412;
+    border: var(--bw) solid var(--paper);
+    font-weight: 900;
+    font-size: 15px;
+}
+.acct__btn:hover,
+.acct__btn[aria-expanded='true'] {
+    box-shadow: 3px 3px 0 var(--paper);
+    transform: translate(-1px, -1px);
+}
+.acct__pop {
+    position: absolute;
+    left: calc(100% + 14px);
+    bottom: 0;
+    z-index: 30;
+    width: 250px;
+    padding: 14px;
+    background: var(--sheet);
+    color: var(--ink);
+    border: var(--bw) solid var(--rule);
+    box-shadow: var(--shadow);
+}
+.acct__name {
+    font-weight: 900;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+.acct__mail {
+    margin: 2px 0 12px;
+    color: var(--ink-3);
+    text-transform: none;
+    overflow-wrap: anywhere;
+}
+.acct__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 6px;
+    border-top: 1px solid var(--rule-soft);
+    font-weight: 700;
+    font-size: 14px;
+    text-align: left;
+    text-decoration: none;
+}
+.acct__item:hover {
+    background: var(--paper-2);
+}
+.acct__item--out {
+    color: var(--act);
+}
+
 @media (max-width: 720px) {
     .shell {
         grid-template-columns: 1fr;
@@ -142,9 +204,23 @@
         border-right: 0;
         border-top: var(--bw) solid var(--rule);
     }
-    .rail__logo,
-    .rail__foot {
+    .rail__logo {
         display: none;
+    }
+    /* Telefonda alt çubukta yalnızca hesap düğmesi kalır */
+    .rail__foot {
+        flex-direction: row;
+        padding: 0 12px;
+        border-top: 0;
+        border-left: 1px solid color-mix(in srgb, var(--paper) 20%, transparent);
+    }
+    .rail__foot > :not(.acct) {
+        display: none;
+    }
+    .acct__pop {
+        left: auto;
+        right: 0;
+        bottom: calc(100% + 12px);
     }
     .rail__nav {
         flex-direction: row;

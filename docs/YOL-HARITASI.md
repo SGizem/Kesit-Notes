@@ -96,7 +96,8 @@ NewProjects/
 | **3** | Dosyalar: PDF (görüntüle + altını çiz → kesit), DOCX (düzenle + dışa aktar), XLSX (tablo düzenle), TXT/MD | ✅ |
 | **4** | Kesit'e sor: kendi kesitlerin üzerinden kaynaklı sohbet. Ücretsiz yerel yapay zeka (Ollama / LM Studio), yoksa yapay zekasız mod; Claude isteğe bağlı | ⏸ Şimdilik kapalı |
 | **5a** | Yayına alma: Cloudflare Pages + Edge Add-ons (ücretsiz) | 🔧 Hazır, hesap adımları bekliyor |
-| **5b** | Hesap + cihazlar arası senkron | ⏳ Sıradaki |
+| **5b** | Tanıtım sayfası + Google ile giriş (hesap başına ayrı veri) | 🔧 Hazır, Supabase kurulumu bekliyor |
+| **5c** | Cihazlar arası senkron | ⏳ Sıradaki |
 
 ### Faz 1'de biten
 - **Eklenti:** Seçili metin, görsel, bağlantı ve sayfa sağ tıkla kaydediliyor. Kısayol `Alt+Shift+K`. Text-fragment bağlantısı ve bağlam paragrafı da saklanıyor. Sayfada çıkan kart üzerinden yorum ve renk eklenebiliyor. Uygulama kapalıyken kesitler kuyrukta bekliyor. Açılır pencerede son kesitler görünüyor.
@@ -158,3 +159,14 @@ Claude API ücretli olduğu için "Sor" artık varsayılan olarak **kullanıcın
 - **Gizlilik için:** Yazı tipleri Google Fonts yerine sitenin içine alındı; uygulama açılışta hiçbir dış adrese istek atmıyor (testle doğrulandı) ve internetsiz de doğru yazı tipiyle açılıyor.
 - **Düzeltmeler:** Gece modunda "Hafızadan" kutusundaki fosfor yazılar açık zeminde okunmuyordu, kutu artık iki temada da koyu. Eklentiden belirli bir sayfa (örn. gizlilik) istendiğinde açık uygulama sekmesi bu sayfayı yok sayıyordu; artık yeni sekmede açılıyor.
 - **Doğrulama:** Yayın provası (derlenmiş site + mağaza paketinin aynısı) 8/8: doğrudan açılan alt sayfalar, yazı tipleri, dış istek yok, eklentinin bağlanması, sağ tıkla kesitin yayındaki masaya düşmesi. Önceki testler de yeniden geçti (Faz 1, 22 + 30 + 17, Sor kapalı 6/6).
+
+### Faz 5b: tanıtım ve hesaplar (18 Ekim 2026)
+- **Kararlar:** Giriş zorunlu, yalnızca Google ile giriş; hesaplar Supabase'in ücretsiz planında (kart istemiyor; Firebase dosya depolama için kart istediğinden seçilmedi).
+- **Tanıtım sayfası (`/`):** Giriş yapmamış ziyaretçi için. Gazete künyesi, fosforla çizilen başlık, sağ tık → kaydet → kart örneği, "Üç hareket", dört özellik, gizlilik sözü, kayda çağrı. Gece ve telefon uyumlu.
+- **Giriş / kayıt (`/giris`, `/kayit`):** "Google ile devam et". İlk girişte hesap kendiliğinden açılır. Uygulama içi bir adrese giriş yapmadan gelinirse girişten sonra o adrese dönülür. Google'da vazgeçilirse açık bir hata gösterilir.
+- **Hesap başına veri:** Her hesabın kesitleri ayrı tarayıcı veritabanında (`kesit-<kimlik>`). Hesaplardan önceki veri, bu tarayıcıda giren ilk hesaba bir kez kopyalanır (eski veritabanı yedek olarak kalır).
+- **Hesap menüsü:** Rayda baş harf (Google fotoğrafı çekilmez, dışarıya istek gitmesin diye), ad, e-posta, Gizlilik, Çıkış. Çıkışta eklentideki kesit kopyası temizlenir. Telefonda alt çubukta.
+- **Eklenti:** Giriş yapılmadan köprü çalışmaz; kesitler eklentide bekler.
+- **Gizlilik metni** hesap bilgisinin Supabase'te (AB) tutulduğunu söyleyecek şekilde güncellendi.
+- **Doğrulama:** Supabase + Google taklit edilerek 27 adımlı test (giriş, yönlendirme, taşıma, iki hesabın birbirini görmemesi, çıkış, vazgeçme, gece, telefon); yayın derlemesiyle prova 12/12 (geliştirici kapısı yayında kapalı). Önceki testler yeniden geçti. Gerçek Google girişi, Supabase projesi kurulunca denenecek (`docs/HESAP.md`).
+- **Eksik:** Uygulama içinden "hesabımı sil" yok; gizlilik metni "bize yaz" diyor ama iletişim adresi henüz yok.

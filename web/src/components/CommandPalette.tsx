@@ -16,7 +16,9 @@ import {
     Plus,
     Scissors,
     ShieldCheck,
+    SignOut,
 } from '@phosphor-icons/react';
+import { signOut } from '../lib/auth';
 import { db, type Marker } from '../db/db';
 import { createNote } from '../db/notes';
 import { exportBackup, importBackup } from '../db/backup';
@@ -116,6 +118,7 @@ export function CommandPalette({ onClose, onToggleTheme }: { onClose: () => void
                 'içe aktar import restore',
             ],
             ['Gizlilik', <ShieldCheck key="i" size={16} weight="bold" />, go('/gizlilik'), 'gizlilik politikası veri izinler privacy'],
+            ['Çıkış yap', <SignOut key="i" size={16} weight="bold" />, () => signOut(), 'oturumu kapat hesap logout'],
         ];
         for (const [label, icon, run, keywords] of commands) {
             add({ key: `cmd:${label}`, group: 'Komutlar', label, icon, run }, label, keywords);

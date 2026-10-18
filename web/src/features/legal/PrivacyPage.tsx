@@ -12,12 +12,17 @@ export function PrivacyPage() {
                 <span className="mark">Gizlilik</span>
             </h1>
             <p className="legal__lead">
-                Kısaca: {BRAND.name} senin verini görmez. Kesitlerin, notların ve dosyaların yalnızca senin tarayıcında durur. Hesap yok,
-                veri sunucusu yok, reklam ve izleme yok.
+                Kısaca: {BRAND.name} senin kesitlerini görmez. Kesitlerin, notların ve dosyaların yalnızca senin tarayıcında durur. Sunucuda
+                sadece hesabın (adın ve e-posta adresin) tutulur. Reklam ve izleme yok.
             </p>
 
             <h2>Ne kaydediliyor, nerede duruyor?</h2>
             <ul>
+                <li>
+                    <b>Hesap:</b> Google ile giriş yaptığında Google'dan adın, e-posta adresin ve profil fotoğrafının adresi gelir. Bunlar ve giriş
+                    zamanların, hesabını tanımak için Supabase'te (Avrupa Birliği'ndeki sunucu) tutulur. Google, {BRAND.name}'e giriş yaptığını bilir;
+                    şifren {BRAND.name}'e hiç gelmez. Profil fotoğrafın uygulamada gösterilmez.
+                </li>
                 <li>
                     <b>Uygulama:</b> Kesitlerin, notların ve yüklediğin dosyalar tarayıcının yerel deposunda (IndexedDB), bu cihazda durur. Sitenin
                     sunucusuna gönderilmez; site yalnızca uygulamanın kendisini (sayfa ve kod dosyalarını) sunar.
@@ -29,7 +34,7 @@ export function PrivacyPage() {
                     kesitlerinin hafif bir kopyasını (en fazla 1000) yerelde tutar.
                 </li>
                 <li>
-                    Hiçbir kayıt {BRAND.name}'e ya da üçüncü taraflara gönderilmez. Analitik, çerez, reklam ya da izleme kodu yoktur. Yazı tipleri de
+                    Kesitlerin, notların ve dosyaların {BRAND.name}'e ya da üçüncü taraflara gönderilmez; hesap sunucusunda da tutulmaz. Analitik, çerez, reklam ya da izleme kodu yoktur. Yazı tipleri de
                     sitenin içindedir; açılışta başka bir siteye istek gitmez.
                 </li>
             </ul>
@@ -61,6 +66,10 @@ export function PrivacyPage() {
                     Tarayıcıda bu sitenin verilerini silmek uygulamadaki her şeyi siler; eklentiyi kaldırmak eklentinin yerel deposunu siler. Yedeğin
                     yoksa silinen veri geri gelmez, çünkü başka bir yerde kopyası yoktur.
                 </li>
+                <li>
+                    Çıkış yapınca eklentideki kesit kopyası da temizlenir. Hesabının silinmesini istersen bize yaz; hesap kaydın silinir (kesitlerin
+                    zaten yalnızca senin cihazındadır).
+                </li>
             </ul>
 
             <h2>Barındırma</h2>
@@ -71,13 +80,15 @@ export function PrivacyPage() {
 
             <h2>Değişiklikler</h2>
             <p>
-                İleride hesap ve cihazlar arası eşitleme eklenirse isteğe bağlı olacak ve bu sayfa, özellik yayına girmeden önce güncellenecek.
+                İleride cihazlar arası eşitleme eklenirse kesitlerin sunucuda saklanmaya başlar; bu sayfa, özellik yayına girmeden önce
+                güncellenecek.
             </p>
 
             <section className="legal__en" lang="en">
                 <h2>In English</h2>
                 <p>
-                    {BRAND.name} does not collect your data. Clips, notes and files are stored only in your browser (IndexedDB and the extension’s
+                    You sign in with Google; your name, email address and profile picture URL are stored in Supabase (EU) to identify your
+                    account. {BRAND.name} does not collect your content. Clips, notes and files are stored only in your browser (IndexedDB and the extension’s
                     local storage) on your device. When you save a clip, the extension records the selected text (or image/link URL), the page URL
                     and title, the surrounding paragraph and your comment, keeps it in local extension storage and hands it to the {BRAND.name} tab.
                     Nothing is sent to us or to third parties; there are no analytics, cookies, ads or trackers, and fonts are self-hosted. The

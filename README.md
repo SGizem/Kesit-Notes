@@ -14,6 +14,8 @@ npm install
 npm run dev          # uygulama: http://localhost:5173
 ```
 
+Giriş Google hesabıyla yapılır (Supabase). Kurulum: `docs/HESAP.md`. Supabase ayarlanmadan önce yerelde giriş sayfasındaki **Geliştirici olarak gir** düğmesiyle çalışılır; bu düğme yayındaki sitede yoktur.
+
 ### "Kesit'e sor" (şimdilik kapalı)
 
 Kayıtlara yerel yapay zekâyla soru sorma özelliği şimdilik kapalı; kodu duruyor. Açmak için `web/src/lib/brand.ts` → `FEATURES.sor = true`. Ayrıntılar: `docs/YOL-HARITASI.md` → Faz 4.

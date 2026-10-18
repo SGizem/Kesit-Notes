@@ -4,6 +4,7 @@ import { ChatsCircle, FileText, MagnifyingGlass, Moon, NotePencil, Scissors, Sun
 import { useEffect, useState, type ReactNode } from 'react';
 import { CommandPalette } from './CommandPalette';
 import { Toasts } from './Toasts';
+import { AccountMenu } from './AccountMenu';
 import { db } from '../db/db';
 import { dayKey } from '../lib/format';
 import { useBridgeStatus } from '../bridge/extensionBridge';
@@ -66,6 +67,7 @@ export function Shell() {
                     >
                         {theme === 'dark' ? <Sun size={18} weight="bold" /> : <Moon size={18} weight="bold" />}
                     </button>
+                    <AccountMenu />
                 </div>
             </aside>
             <main className="page">

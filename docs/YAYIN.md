@@ -23,7 +23,8 @@
    | Framework preset | None |
    | Build command | `npm run build` |
    | Build output directory | `web/dist` |
-4. **Save and Deploy.** Birkaç dakika sonra site `https://AD.pages.dev` adresinde açılır.
+4. **Environment variables (Production):** `VITE_SUPABASE_URL` ve `VITE_SUPABASE_PUBLISHABLE_KEY` (değerler: `docs/HESAP.md`). Bunlar olmadan site açılır ama giriş düğmesi çalışmaz.
+5. **Save and Deploy.** Birkaç dakika sonra site `https://AD.pages.dev` adresinde açılır.
 
 Bundan sonra `main` dalına her gönderimde site kendiliğinden yenilenir. Node sürümü `.node-version` dosyasından okunur (22).
 
@@ -54,6 +55,7 @@ Yeni sürüm göndermek için `extension/manifest.json` → `version` artır, `n
 
 ## Kontrol listesi
 
-- [ ] Site açılıyor, `ADRES/gizlilik` sayfası görünüyor.
+- [ ] Site açılıyor: tanıtım sayfası, `ADRES/gizlilik`.
+- [ ] Google ile giriş çalışıyor, girişten sonra masa açılıyor (kurulum: `docs/HESAP.md`).
 - [ ] `dist-extension/` Edge'de yüklenince sol alttaki nokta yeşil (eklenti bağlandı).
 - [ ] Bir sayfada sağ tık → kaydet → kesit sitedeki masaya düştü.

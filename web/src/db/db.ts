@@ -109,37 +109,94 @@ export interface Chat {
     updatedAt: number;
 }
 
-export const db = new Dexie('kesit') as Dexie & {
+export type KesitDb = Dexie & {
     clips: EntityTable<Clip, 'id'>;
     notes: EntityTable<Note, 'id'>;
     files: EntityTable<StoredFile, 'id'>;
     chats: EntityTable<Chat, 'id'>;
 };
 
-db.version(1).stores({
-    clips: 'id, createdAt, domain, color, *noteIds',
-    notes: 'id, updatedAt, pinned',
-});
+function makeDb(name: string): KesitDb {
+    const d = new Dexie(name) as KesitDb;
 
-// v2: etiketler. Eski kesitlerin yorumlarındaki #etiketler geriye dönük çıkarılır.
-db.version(2)
-    .stores({ clips: 'id, createdAt, domain, color, *noteIds, *tags' })
-    .upgrade((tx) =>
-        tx
-            .table('clips')
-            .toCollection()
-            .modify((c: Clip) => {
-                c.tags = extractTags(c.comment);
-            }),
-    );
+    d.version(1).stores({
+        clips: 'id, createdAt, domain, color, *noteIds',
+        notes: 'id, updatedAt, pinned',
+    });
 
-// v3: dosyalar (PDF, Word, Excel, metin) ve dosyadan alınan kesitler.
-db.version(3).stores({
-    clips: 'id, createdAt, domain, color, *noteIds, *tags, fileId',
-    files: 'id, updatedAt, kind',
-});
+    // v2: etiketler. Eski kesitlerin yorumlarındaki #etiketler geriye dönük çıkarılır.
+    d.version(2)
+        .stores({ clips: 'id, createdAt, domain, color, *noteIds, *tags' })
+        .upgrade((tx) =>
+            tx
+                .table('clips')
+                .toCollection()
+                .modify((c: Clip) => {
+                    c.tags = extractTags(c.comment);
+                }),
+        );
 
-// v4: "Kesit'e sor" sohbetleri.
-db.version(4).stores({ chats: 'id, updatedAt' });
+    // v3: dosyalar (PDF, Word, Excel, metin) ve dosyadan alınan kesitler.
+    d.version(3).stores({
+        clips: 'id, createdAt, domain, color, *noteIds, *tags, fileId',
+        files: 'id, updatedAt, kind',
+    });
+
+    // v4: "Kesit'e sor" sohbetleri.
+    d.version(4).stores({ chats: 'id, updatedAt' });
+    return d;
+}
+
+/** Hesaplardan önceki (ve geliştirici oturumundaki) veritabanı. */
+export const LEGACY_DB = 'kesit';
+const CLAIM_KEY = 'kesit.eski-veri-sahibi';
+
+/**
+ * Etkin hesabın veritabanı. Her hesabın verisi ayrı bir IndexedDB'de durur: aynı tarayıcıda
+ * iki kişi giriş yapsa birbirinin kesitlerini görmez. Giriş yapılınca openAccountDb ile değişir;
+ * `import { db }` canlı bağlama olduğu için her yer yenisini görür.
+ */
+export let db: KesitDb = makeDb(LEGACY_DB);
+
+export const dbNameFor = (uid: string, dev = false) => (dev ? LEGACY_DB : `kesit-${uid}`);
+
+/**
+ * Hesabın veritabanını aç. İlk girişte, bu tarayıcıda hesaplardan önce biriken veri (eski "kesit"
+ * veritabanı) bir kez, ilk giren hesaba kopyalanır. Eski veritabanı silinmez; yedek olarak kalır.
+ */
+export async function openAccountDb(uid: string, dev = false): Promise<{ moved: number }> {
+    const name = dbNameFor(uid, dev);
+    if (db.name !== name) {
+        db.close();
+        db = makeDb(name);
+    }
+    if (dev) return { moved: 0 };
+
+    let claimed: string | null = null;
+    try {
+        claimed = localStorage.getItem(CLAIM_KEY);
+    } catch {}
+    if (claimed || !(await Dexie.exists(LEGACY_DB))) return { moved: 0 };
+
+    const old = makeDb(LEGACY_DB);
+    try {
+        const [clips, notes, files, chats] = await Promise.all([old.clips.toArray(), old.notes.toArray(), old.files.toArray(), old.chats.toArray()]);
+        const moved = clips.length + notes.length + files.length;
+        if (moved) {
+            await db.transaction('rw', [db.clips, db.notes, db.files, db.chats], async () => {
+                await db.clips.bulkPut(clips);
+                await db.notes.bulkPut(notes);
+                await db.files.bulkPut(files);
+                await db.chats.bulkPut(chats);
+            });
+        }
+        try {
+            localStorage.setItem(CLAIM_KEY, uid);
+        } catch {}
+        return { moved };
+    } finally {
+        old.close();
+    }
+}
 
 export const newId = () => crypto.randomUUID();

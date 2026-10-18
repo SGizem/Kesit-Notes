@@ -28,7 +28,7 @@ Bir sayfada metni seç, sağ tıkla ve "Kesit'e kaydet"i seç (ya da Alt+Shift+K
 - Notlar: kesitleri notlarına alıntı olarak ekle, notu PDF ya da Word olarak indir.
 - Dosyalar: PDF, Word, Excel, CSV ve metin dosyalarını aç, altını çiz, düzenle.
 
-Gizlilik: Hesap yok, sunucu yok, izleme yok. Kesitlerin yalnızca senin tarayıcında durur.
+Google hesabınla giriş yaparsın; kesitlerin, notların ve dosyaların yalnızca senin tarayıcında durur. Reklam yok, izleme yok.
 
 **Arama terimleri (en fazla 7):** alıntı, altını çiz, not, web clipper, vurgulama, okuma, kesit
 
@@ -50,7 +50,7 @@ Select text on any page, right-click and choose "Kesit'e kaydet" (or press Alt+S
 - Notes: quote clips into notes and export notes as PDF or Word.
 - Files: open, highlight and edit PDF, Word, Excel, CSV and text files.
 
-Privacy: no account, no server, no tracking. Your clips stay in your browser. The interface is in Turkish.
+Sign in with Google; your clips, notes and files stay in your browser. No ads, no tracking. The interface is in Turkish.
 
 **Search terms:** highlight, web clipper, quotes, notes, reading, underline, clip
 
@@ -67,4 +67,4 @@ Logo: `store/logo-300.png`
 
 ## Sertifikasyon notu (Notes for certification)
 
-> Kesit works together with its web app at UYGULAMA_ADRESI. To test: open UYGULAMA_ADRESI once (the extension connects to it), then select text on any web page, right-click → "Kesit'e kaydet". A card confirms the save and the clip appears on the desk in the web app. The optional all-sites permission is only requested when the user enables "Sayfalarda göster" in the popup; it is used to re-draw saved highlights. No data leaves the browser; no remote code is loaded.
+> Kesit works together with its web app at UYGULAMA_ADRESI. To test: open UYGULAMA_ADRESI, click "Kayıt ol" (Sign up) and continue with any Google account (the extension connects once you are signed in), then select text on any web page, right-click → "Kesit'e kaydet". A card confirms the save and the clip appears on the desk in the web app. The optional all-sites permission is only requested when the user enables "Sayfalarda göster" in the popup; it is used to re-draw saved highlights. No data leaves the browser; no remote code is loaded.
