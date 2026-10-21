@@ -16,6 +16,6 @@
     "ext:build": "node scripts/ext-build.mjs"
   },
   "engines": {
-    "node": "22.x"
+    "node": ">=22"
   }
 }

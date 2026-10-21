@@ -27,7 +27,7 @@ Site ilk önce Cloudflare Pages'e kurulmuştu, ancak `pages.dev` alan adı Türk
 4. **Environment Variables:** `VITE_SUPABASE_URL` ve `VITE_SUPABASE_PUBLISHABLE_KEY` (değerler: `docs/HESAP.md`). Bunlar olmadan site açılır ama giriş düğmesi çalışmaz.
 5. **Deploy.** Bir iki dakika sonra site `https://kesit-notes.vercel.app` adresinde açılır.
 
-Bundan sonra `main` dalına her gönderimde site kendiliğinden yenilenir. Node sürümü kök `package.json` → `engines` alanından okunur (22).
+Bundan sonra `main` dalına her gönderimde site kendiliğinden yenilenir. Node sürümü kök `package.json` → `engines` alanından okunur (22 ya da daha yeni; Vercel 24 kullanıyor).
 
 `vercel.json` güvenlik başlıklarını, önbelleği ve yönlendirmeyi ayarlar: adres çubuğuna doğrudan `/notlar/...` gibi bir yol yazıldığında da uygulama açılır.
 
