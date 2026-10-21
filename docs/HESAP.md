@@ -4,7 +4,7 @@ Kesit'e giriş Google hesabıyla yapılır; hesaplar ücretsiz bir Supabase proj
 
 Hiçbir adımda kredi kartı istenmez. Kart isteyen bir ekran görürsen orada dur.
 
-Aşağıda `SITE` yazan yerler sitenin adresi (örn. `https://kesit.pages.dev`), `PROJE` yazan yerler Supabase proje kimliği (örn. `abcdwxyz`).
+Aşağıda `SITE` yazan yerler sitenin adresi (örn. `https://kesit-notes.vercel.app`), `PROJE` yazan yerler Supabase proje kimliği (örn. `abcdwxyz`).
 
 ## 1. Supabase projesi
 
@@ -64,7 +64,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 
 `npm run dev`'i yeniden başlat. Giriş sayfasındaki "Google ile devam et" düğmesi etkinleşir.
 
-**Yayındaki sitede:** Cloudflare → Workers & Pages → `kesit` → **Settings → Variables and Secrets** → Production için aynı iki değişkeni ekle → **Deployments → Retry deployment** (değişkenler derleme sırasında okunur).
+**Yayındaki sitede:** Vercel → `kesit-notes` → **Settings → Environment Variables** → aynı iki değişkeni ekle → **Deployments** → en üstteki yayının **⋯ → Redeploy** (değişkenler derleme sırasında okunur).
 
 ## Ücretsiz plan hakkında bilmen gerekenler
 

@@ -1,12 +1,12 @@
 # Edge Add-ons ilanı
 
-Partner Center'da "Store listings" ve "Properties" sayfalarına buradan kopyala. Site adresi: `https://kesit-notes.pages.dev`.
+Partner Center'da "Store listings" ve "Properties" sayfalarına buradan kopyala. Site adresi: `https://kesit-notes.vercel.app`.
 
 ## Özellikler (Properties)
 
 - **Kategori:** Productivity
-- **Gizlilik politikası adresi:** `https://kesit-notes.pages.dev/gizlilik`
-- **Web sitesi:** `https://kesit-notes.pages.dev`
+- **Gizlilik politikası adresi:** `https://kesit-notes.vercel.app/gizlilik`
+- **Web sitesi:** `https://kesit-notes.vercel.app`
 - **Destek:** https://github.com/SGizem/Kesit-Notes/issues
 - **Yetişkin içerik:** Hayır
 
@@ -67,4 +67,4 @@ Logo: `store/logo-300.png`
 
 ## Sertifikasyon notu (Notes for certification)
 
-> Kesit works together with its web app at https://kesit-notes.pages.dev. To test: open https://kesit-notes.pages.dev, click "Kayıt ol" (Sign up) and continue with any Google account (the extension connects once you are signed in), then select text on any web page, right-click → "Kesit'e kaydet". A card confirms the save and the clip appears on the desk in the web app. The optional all-sites permission is only requested when the user enables "Sayfalarda göster" in the popup; it is used to re-draw saved highlights. Clips, notes and files never leave the browser (only Google sign-in goes through Supabase); the extension loads no remote code.
+> Kesit works together with its web app at https://kesit-notes.vercel.app. To test: open https://kesit-notes.vercel.app, click "Kayıt ol" (Sign up) and continue with any Google account (the extension connects once you are signed in), then select text on any web page, right-click → "Kesit'e kaydet". A card confirms the save and the clip appears on the desk in the web app. The optional all-sites permission is only requested when the user enables "Sayfalarda göster" in the popup; it is used to re-draw saved highlights. Clips, notes and files never leave the browser (only Google sign-in goes through Supabase); the extension loads no remote code.

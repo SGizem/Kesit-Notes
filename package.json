@@ -14,5 +14,8 @@
     "typecheck": "npm run typecheck --workspace web",
     "icons": "node scripts/make-icons.mjs",
     "ext:build": "node scripts/ext-build.mjs"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }

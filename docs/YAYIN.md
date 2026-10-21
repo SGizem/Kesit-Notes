@@ -1,6 +1,6 @@
 # Yayına alma
 
-Üç adım: kodu GitHub'a koy → Cloudflare Pages siteyi yayınlasın → eklentiyi Edge mağazasına gönder. Hepsi ücretsiz.
+Üç adım: kodu GitHub'a koy → Vercel siteyi yayınlasın → eklentiyi Edge mağazasına gönder. Hepsi ücretsiz.
 
 ## 1. GitHub
 
@@ -11,33 +11,32 @@
    git push -u origin main
    ```
 
-## 2. Cloudflare Pages (site)
+## 2. Vercel (site)
 
-1. https://dash.cloudflare.com adresinde ücretsiz hesap aç.
-2. **Workers & Pages → Create → Pages → Connect to Git** → GitHub'ı bağla → `Kesit-Notes` deposunu seç.
+Site ilk önce Cloudflare Pages'e kurulmuştu, ancak `pages.dev` alan adı Türkiye'de erişime engelli (Ekim 2026). Bu yüzden site Vercel'de.
+
+1. https://vercel.com/signup → **Hobby** (ücretsiz, kart istemez) → **Continue with GitHub**.
+2. **Add New… → Project** → GitHub'da `Kesit-Notes` deposuna izin ver → **Import**.
 3. Ayarlar:
    | Alan | Değer |
    |---|---|
-   | Project name | `kesit-notes` (site adresi `kesit-notes.pages.dev`) |
-   | Production branch | `main` |
-   | Framework preset | None |
-   | Build command | `npm run build` |
-   | Build output directory | `web/dist` |
-4. **Environment variables (Production):** `VITE_SUPABASE_URL` ve `VITE_SUPABASE_PUBLISHABLE_KEY` (değerler: `docs/HESAP.md`). Bunlar olmadan site açılır ama giriş düğmesi çalışmaz.
-5. **Save and Deploy.** Birkaç dakika sonra site `https://kesit-notes.pages.dev` adresinde açılır.
+   | Project Name | `kesit-notes` (site adresi `kesit-notes.vercel.app`) |
+   | Framework Preset | Other |
+   | Root Directory | `./` (değiştirme) |
+   | Build / Output | Dokunma; `vercel.json`'dan okunur (`npm run build` → `web/dist`) |
+4. **Environment Variables:** `VITE_SUPABASE_URL` ve `VITE_SUPABASE_PUBLISHABLE_KEY` (değerler: `docs/HESAP.md`). Bunlar olmadan site açılır ama giriş düğmesi çalışmaz.
+5. **Deploy.** Bir iki dakika sonra site `https://kesit-notes.vercel.app` adresinde açılır.
 
-   Not (2. adım): Yeni Cloudflare panelinde **Create** sayfası önce "Workers" seçeneklerini gösterir. Altındaki **Continue to Pages** bağlantısıyla Pages kurulumuna geç.
+Bundan sonra `main` dalına her gönderimde site kendiliğinden yenilenir. Node sürümü kök `package.json` → `engines` alanından okunur (22).
 
-Bundan sonra `main` dalına her gönderimde site kendiliğinden yenilenir. Node sürümü `.node-version` dosyasından okunur (22).
-
-`web/public/_headers` güvenlik başlıklarını ve önbelleği ayarlar. Adres çubuğuna doğrudan `/notlar/...` gibi bir yol yazıldığında Cloudflare Pages, `404.html` olmadığı için `index.html`'i döndürür; ek ayar gerekmez.
+`vercel.json` güvenlik başlıklarını, önbelleği ve yönlendirmeyi ayarlar: adres çubuğuna doğrudan `/notlar/...` gibi bir yol yazıldığında da uygulama açılır.
 
 ## 3. Eklenti paketi
 
 Sitenin adresi belli olunca:
 
 ```powershell
-npm run ext:build -- https://kesit-notes.pages.dev
+npm run ext:build -- https://kesit-notes.vercel.app
 ```
 
 Bu komut `extension/` klasörüne dokunmadan iki şey üretir:

@@ -85,8 +85,8 @@ export function PrivacyPage() {
 
             <h2>Barındırma</h2>
             <p>
-                Site Cloudflare Pages üzerinde yayınlanır. Cloudflare, her web sunucusu gibi, sayfayı sana ulaştırmak için IP adresi gibi teknik
-                bilgileri işleyebilir. {BRAND.name} bu kayıtlara erişmez ve onları kullanmaz.
+                Site Vercel üzerinde yayınlanır. Vercel, her web sunucusu gibi, sayfayı sana ulaştırmak için IP adresi gibi teknik bilgileri
+                işleyebilir. {BRAND.name} bu kayıtlara erişmez ve onları kullanmaz.
             </p>
 
             <h2>Değişiklikler</h2>
@@ -106,7 +106,7 @@ export function PrivacyPage() {
                     optional “all sites” permission is requested only if you turn on “Sayfalarda göster” (show highlights on pages) and is used
                     solely to draw your existing highlights. Clearing this site’s data or removing the extension deletes everything. To delete
                     your account, open the account menu (your initial, bottom left) and choose “Hesabımı sil”: your account record is removed
-                    from Supabase and your clips, notes and files are removed from this browser. The site is hosted on Cloudflare Pages, which
+                    from Supabase and your clips, notes and files are removed from this browser. The site is hosted on Vercel, which
                     may process technical data such as IP addresses to deliver it. Questions:{' '}
                     <a href={BRAND.support} target="_blank" rel="noreferrer">
                         GitHub issues

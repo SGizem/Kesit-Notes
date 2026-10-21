@@ -1,5 +1,5 @@
 // Mağaza için eklenti paketi: extension/ klasörünü yayındaki uygulama adresine bağlar ve zip'ler.
-//   npm run ext:build -- https://kesit.pages.dev
+//   npm run ext:build -- https://kesit-notes.vercel.app
 // Çıktı: dist-extension/ (geliştirici modunda denemek için) + dist-extension.zip (mağazaya yüklenecek).
 // extension/ klasörü değişmez; geliştirmede localhost:5173 ile çalışmaya devam eder.
 import { cpSync, readFileSync, readdirSync, rmSync, writeFileSync, existsSync } from 'node:fs';
@@ -18,7 +18,7 @@ let appUrl;
 try {
     appUrl = new URL(arg).origin;
 } catch {
-    console.error('Uygulamanın yayındaki adresini ver:  npm run ext:build -- https://kesit.pages.dev');
+    console.error('Uygulamanın yayındaki adresini ver:  npm run ext:build -- https://kesit-notes.vercel.app');
     process.exit(1);
 }
 // --yerel-test: derlenmiş siteyi `vite preview` ile (http://localhost:4173) denemek için. Mağazaya bu gönderilmez.
