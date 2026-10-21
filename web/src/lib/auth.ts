@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react';
 import type { SupabaseClient, User as SbUser } from '@supabase/supabase-js';
 import { clearExtensionMirror } from '../bridge/extensionBridge';
+import { deleteAccountDb } from '../db/db';
 
 /**
  * Oturum: Google ile giriş, Supabase Auth üzerinden. Kesitler, notlar ve dosyalar yine tarayıcıda
@@ -28,6 +29,7 @@ const KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 export const AUTH_CONFIGURED = Boolean(URL_ && KEY);
 
 const DEV_KEY = 'kesit.dev-oturum';
+const SESSION_KEY = 'kesit-oturum';
 export const DEV_ACCOUNT: Account = { id: 'gelistirici', name: 'Geliştirici', email: 'gelistirici@yerel', dev: true };
 
 let state: AuthState = { status: 'loading' };
@@ -43,7 +45,7 @@ function supabase(): Promise<SupabaseClient> {
     if (!AUTH_CONFIGURED) return Promise.reject(new Error('Supabase ayarlanmamış'));
     client ??= import('@supabase/supabase-js').then(({ createClient }) =>
         createClient(URL_!, KEY!, {
-            auth: { flowType: 'pkce', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'kesit-oturum' },
+            auth: { flowType: 'pkce', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: SESSION_KEY },
         }),
     );
     return client;
@@ -133,8 +135,34 @@ export async function signOut() {
         const sb = await supabase();
         await sb.auth.signOut({ scope: 'local' });
     }
+    await leave();
+}
+
+async function leave(to = '/') {
     clearExtensionMirror();
     await new Promise((r) => setTimeout(r, 150)); // köprü mesajı eklentiye ulaşsın
     // Sayfayı baştan yükle: eklenti köprüsü ve açık veritabanı kapanır, tanıtım sayfası açılır.
-    location.assign('/');
+    location.assign(to);
+}
+
+/**
+ * Hesabı kalıcı olarak siler: Supabase'teki hesap kaydı (sunucudaki `delete_my_account` işlevi,
+ * bkz. supabase/hesap-silme.sql) ve bu tarayıcıdaki kesitler, notlar, dosyalar.
+ */
+export async function deleteAccount() {
+    if (state.status !== 'signed-in' || state.account.dev) return;
+    const { id } = state.account;
+    const sb = await supabase();
+    const { error } = await sb.rpc('delete_my_account');
+    if (error) {
+        console.error('Hesap silinemedi:', error);
+        throw new Error('Hesap silinemedi. Biraz sonra yeniden dene.');
+    }
+    await deleteAccountDb(id);
+    // Hesap artık yok; çıkış isteği hata verse de oturum bu tarayıcıdan kalksın.
+    await sb.auth.signOut({ scope: 'local' }).catch(() => {});
+    try {
+        localStorage.removeItem(SESSION_KEY);
+    } catch {}
+    await leave('/?hesap=silindi');
 }

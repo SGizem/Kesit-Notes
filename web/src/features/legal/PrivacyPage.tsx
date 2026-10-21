@@ -7,7 +7,7 @@ import { BRAND } from '../../lib/brand';
 export function PrivacyPage() {
     return (
         <article className="legal">
-            <p className="legal__kicker mono">Son güncelleme: 18 Ekim 2026</p>
+            <p className="legal__kicker mono">Son güncelleme: 21 Ekim 2026</p>
             <h1 className="legal__title">
                 <span className="mark">Gizlilik</span>
             </h1>
@@ -66,11 +66,22 @@ export function PrivacyPage() {
                     Tarayıcıda bu sitenin verilerini silmek uygulamadaki her şeyi siler; eklentiyi kaldırmak eklentinin yerel deposunu siler. Yedeğin
                     yoksa silinen veri geri gelmez, çünkü başka bir yerde kopyası yoktur.
                 </li>
+                <li>Çıkış yapınca eklentideki kesit kopyası da temizlenir.</li>
                 <li>
-                    Çıkış yapınca eklentideki kesit kopyası da temizlenir. Hesabının silinmesini istersen bize yaz; hesap kaydın silinir (kesitlerin
-                    zaten yalnızca senin cihazındadır).
+                    <b>Hesabını silmek için:</b> uygulamada sol alttaki baş harfine tıkla → “Hesabımı sil”. Hesap kaydın Supabase’ten, kesitlerin,
+                    notların ve dosyaların bu tarayıcıdan hemen silinir. Başka bir tarayıcıda da giriş yaptıysan oradaki kopya o tarayıcıda kalır;
+                    o tarayıcıda bu sitenin verilerini temizleyerek silebilirsin.
                 </li>
             </ul>
+
+            <h2>İletişim</h2>
+            <p>
+                Soruların ve isteklerin için:{' '}
+                <a href={BRAND.support} target="_blank" rel="noreferrer">
+                    GitHub’daki geri bildirim sayfası
+                </a>
+                . Oraya yazılanlar herkese açıktır; kişisel bilgi paylaşma.
+            </p>
 
             <h2>Barındırma</h2>
             <p>
@@ -93,8 +104,14 @@ export function PrivacyPage() {
                     and title, the surrounding paragraph and your comment, keeps it in local extension storage and hands it to the {BRAND.name} tab.
                     Nothing is sent to us or to third parties; there are no analytics, cookies, ads or trackers, and fonts are self-hosted. The
                     optional “all sites” permission is requested only if you turn on “Sayfalarda göster” (show highlights on pages) and is used
-                    solely to draw your existing highlights. Clearing this site’s data or removing the extension deletes everything. The site is
-                    hosted on Cloudflare Pages, which may process technical data such as IP addresses to deliver it.
+                    solely to draw your existing highlights. Clearing this site’s data or removing the extension deletes everything. To delete
+                    your account, open the account menu (your initial, bottom left) and choose “Hesabımı sil”: your account record is removed
+                    from Supabase and your clips, notes and files are removed from this browser. The site is hosted on Cloudflare Pages, which
+                    may process technical data such as IP addresses to deliver it. Questions:{' '}
+                    <a href={BRAND.support} target="_blank" rel="noreferrer">
+                        GitHub issues
+                    </a>
+                    .
                 </p>
             </section>
         </article>

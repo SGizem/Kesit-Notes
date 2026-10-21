@@ -188,6 +188,13 @@
 .acct__item--out {
     color: var(--act);
 }
+.acct__item--del {
+    color: var(--ink-3);
+    font-size: 13px;
+}
+.acct__item--del:hover {
+    color: var(--act);
+}
 
 @media (max-width: 720px) {
     .shell {

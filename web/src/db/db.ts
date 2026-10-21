@@ -199,4 +199,22 @@ export async function openAccountDb(uid: string, dev = false): Promise<{ moved: 
     }
 }
 
+/**
+ * Hesap silinince bu tarayıcıdaki verisini sil: hesabın veritabanı ve, ilk girişte bu hesaba
+ * taşındıysa, hesaplardan önceki eski veritabanı. Başka tarayıcılardaki kopyalara dokunulamaz.
+ */
+export async function deleteAccountDb(uid: string) {
+    let claimed: string | null = null;
+    try {
+        claimed = localStorage.getItem(CLAIM_KEY);
+    } catch {}
+    await db.delete();
+    if (claimed === uid) {
+        await Dexie.delete(LEGACY_DB);
+        try {
+            localStorage.removeItem(CLAIM_KEY);
+        } catch {}
+    }
+}
+
 export const newId = () => crypto.randomUUID();

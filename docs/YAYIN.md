@@ -4,27 +4,29 @@
 
 ## 1. GitHub
 
-1. https://github.com/new adresinde **boş** bir depo aç (README ekleme). Ad: `kesit`. Gizli (Private) ya da açık olabilir.
+1. https://github.com/new adresinde **boş** bir depo aç (README ekleme). Ad: `Kesit-Notes`. Gizli (Private) ya da açık olabilir.
 2. Proje klasöründe:
    ```powershell
-   git remote add origin git@github.com:KULLANICI_ADIN/kesit.git
+   git remote add origin https://github.com/SGizem/Kesit-Notes.git
    git push -u origin main
    ```
 
 ## 2. Cloudflare Pages (site)
 
 1. https://dash.cloudflare.com adresinde ücretsiz hesap aç.
-2. **Workers & Pages → Create → Pages → Connect to Git** → GitHub'ı bağla → `kesit` deposunu seç.
+2. **Workers & Pages → Create → Pages → Connect to Git** → GitHub'ı bağla → `Kesit-Notes` deposunu seç.
 3. Ayarlar:
    | Alan | Değer |
    |---|---|
-   | Project name | `kesit` (alınmışsa `kesit-not` gibi başka bir ad; site adresi `AD.pages.dev` olur) |
+   | Project name | `kesit-notes` (site adresi `kesit-notes.pages.dev`) |
    | Production branch | `main` |
    | Framework preset | None |
    | Build command | `npm run build` |
    | Build output directory | `web/dist` |
 4. **Environment variables (Production):** `VITE_SUPABASE_URL` ve `VITE_SUPABASE_PUBLISHABLE_KEY` (değerler: `docs/HESAP.md`). Bunlar olmadan site açılır ama giriş düğmesi çalışmaz.
-5. **Save and Deploy.** Birkaç dakika sonra site `https://AD.pages.dev` adresinde açılır.
+5. **Save and Deploy.** Birkaç dakika sonra site `https://kesit-notes.pages.dev` adresinde açılır.
+
+   Not (2. adım): Yeni Cloudflare panelinde **Create** sayfası önce "Workers" seçeneklerini gösterir. Altındaki **Continue to Pages** bağlantısıyla Pages kurulumuna geç.
 
 Bundan sonra `main` dalına her gönderimde site kendiliğinden yenilenir. Node sürümü `.node-version` dosyasından okunur (22).
 
@@ -35,7 +37,7 @@ Bundan sonra `main` dalına her gönderimde site kendiliğinden yenilenir. Node 
 Sitenin adresi belli olunca:
 
 ```powershell
-npm run ext:build -- https://AD.pages.dev
+npm run ext:build -- https://kesit-notes.pages.dev
 ```
 
 Bu komut `extension/` klasörüne dokunmadan iki şey üretir:

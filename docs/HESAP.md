@@ -44,6 +44,15 @@ Aşağıda `SITE` yazan yerler sitenin adresi (örn. `https://kesit.pages.dev`),
      - `SITE/**`
      - `http://localhost:5173/**`
 
+## 3b. "Hesabımı sil" için sunucu işlevi
+
+Kullanıcı hesap menüsünden hesabını silebilsin diye Supabase'te bir kez çalıştırılır:
+
+1. Supabase → **SQL Editor** → **New query**.
+2. [`supabase/hesap-silme.sql`](../supabase/hesap-silme.sql) dosyasının tamamını yapıştır → **Run**. "Success. No rows returned" çıkmalı.
+
+Bu işlev yalnızca giriş yapmış kişinin **kendi** hesabını siler. Çalıştırılmazsa "Hesabımı sil" düğmesi "Hesap silinemedi" der ve hiçbir şeyi silmez.
+
 ## 4. Uygulamaya anahtarları ver
 
 **Kendi bilgisayarında:** `web/.env.local` dosyası oluştur (git'e girmez):

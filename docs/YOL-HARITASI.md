@@ -169,4 +169,5 @@ Claude API ücretli olduğu için "Sor" artık varsayılan olarak **kullanıcın
 - **Eklenti:** Giriş yapılmadan köprü çalışmaz; kesitler eklentide bekler.
 - **Gizlilik metni** hesap bilgisinin Supabase'te (AB) tutulduğunu söyleyecek şekilde güncellendi.
 - **Doğrulama:** Supabase + Google taklit edilerek 27 adımlı test (giriş, yönlendirme, taşıma, iki hesabın birbirini görmemesi, çıkış, vazgeçme, gece, telefon); yayın derlemesiyle prova 12/12 (geliştirici kapısı yayında kapalı). Önceki testler yeniden geçti. Gerçek Google girişi, Supabase projesi kurulunca denenecek (`docs/HESAP.md`).
-- **Eksik:** Uygulama içinden "hesabımı sil" yok; gizlilik metni "bize yaz" diyor ama iletişim adresi henüz yok.
+- **Hesabımı sil (21 Ekim 2026):** Hesap menüsünde. Onaydan sonra Supabase'teki hesap kaydı (`supabase/hesap-silme.sql` içindeki `delete_my_account` işlevi, yalnızca kişinin kendi hesabı) ve bu tarayıcıdaki veritabanı silinir; eski veri bu hesaba taşındıysa o da silinir. Sunucu hata verirse hiçbir şey silinmez. Gizlilik sayfasına silme yolu ve iletişim (GitHub Issues) eklendi. Test: hesap testi 37/37.
+- **Yayında (21 Ekim 2026):** Kod GitHub'da (`SGizem/Kesit-Notes`), site `https://kesit-notes.pages.dev`. Eklenti paketi bu adrese bağlı (`npm run ext:build -- https://kesit-notes.pages.dev`).

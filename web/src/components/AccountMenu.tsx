@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, SignOut } from '@phosphor-icons/react';
-import { signOut, useAuth } from '../lib/auth';
+import { ShieldCheck, SignOut, Trash } from '@phosphor-icons/react';
+import { deleteAccount, signOut, useAuth } from '../lib/auth';
+import { toast } from '../lib/toast';
 
 /**
  * Raydaki hesap düğmesi: adının baş harfi. Google profil fotoğrafını kullanmıyoruz;
@@ -10,7 +11,7 @@ import { signOut, useAuth } from '../lib/auth';
 export function AccountMenu() {
     const auth = useAuth();
     const [open, setOpen] = useState(false);
-    const [leaving, setLeaving] = useState(false);
+    const [leaving, setLeaving] = useState<false | 'out' | 'delete'>(false);
     const box = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -26,7 +27,23 @@ export function AccountMenu() {
     }, [open]);
 
     if (auth.status !== 'signed-in') return null;
-    const { name, email } = auth.account;
+    const { name, email, dev } = auth.account;
+
+    const onDelete = async () => {
+        const ok = window.confirm(
+            'Hesabın kalıcı olarak silinsin mi?\n\n' +
+                'Hesap kaydın ve bu tarayıcıdaki bütün kesitlerin, notların ve dosyaların silinir. Bu geri alınamaz.\n\n' +
+                'Önce yedek almak istersen Vazgeç’e bas, sonra Ctrl+K → "Yedek indir".',
+        );
+        if (!ok) return;
+        setLeaving('delete');
+        try {
+            await deleteAccount();
+        } catch (e) {
+            setLeaving(false);
+            toast((e as Error).message, 'error');
+        }
+    };
     const initial = name.trim().charAt(0).toLocaleUpperCase('tr-TR') || '?';
 
     return (
@@ -44,14 +61,19 @@ export function AccountMenu() {
                     <button
                         className="acct__item acct__item--out"
                         role="menuitem"
-                        disabled={leaving}
+                        disabled={Boolean(leaving)}
                         onClick={() => {
-                            setLeaving(true);
+                            setLeaving('out');
                             void signOut();
                         }}
                     >
-                        <SignOut size={16} weight="bold" /> {leaving ? 'Çıkılıyor…' : 'Çıkış yap'}
+                        <SignOut size={16} weight="bold" /> {leaving === 'out' ? 'Çıkılıyor…' : 'Çıkış yap'}
                     </button>
+                    {!dev && (
+                        <button className="acct__item acct__item--del" role="menuitem" disabled={Boolean(leaving)} onClick={() => void onDelete()}>
+                            <Trash size={16} weight="bold" /> {leaving === 'delete' ? 'Siliniyor…' : 'Hesabımı sil'}
+                        </button>
+                    )}
                 </div>
             )}
         </div>

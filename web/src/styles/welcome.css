@@ -106,6 +106,15 @@
     color: var(--ink-2);
 }
 
+.landing__notice {
+    margin-top: 22px;
+    padding: 10px 12px;
+    background: var(--hi);
+    color: #151412;
+    border: var(--bw) solid var(--rule);
+    font-weight: 700;
+}
+
 .hero {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);

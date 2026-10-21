@@ -2,6 +2,8 @@
 export const BRAND = {
     name: 'Kesit',
     tagline: 'altını çizdiğin her şey',
+    /** Sorular ve geri bildirim (gizlilik sayfası, mağaza ilanı). */
+    support: 'https://github.com/SGizem/Kesit-Notes/issues',
 } as const;
 
 /**

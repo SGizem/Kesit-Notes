@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, BookOpenText, FileText, NotePencil, Scissors } from '@phosphor-icons/react';
 import { BRAND } from '../../lib/brand';
 import { PublicFoot, PublicTop } from './PublicPage';
@@ -7,11 +7,18 @@ const today = new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'l
 
 /** Giriş yapmamış ziyaretçinin gördüğü ilk sayfa: ne olduğunu anlat, kayda çağır. */
 export function Landing() {
+    const [params] = useSearchParams();
+    const deleted = params.get('hesap') === 'silindi';
     return (
         <div className="pub">
             <PublicTop />
 
             <main className="pub__main landing">
+                {deleted && (
+                    <p className="landing__notice" role="status">
+                        Hesabın ve bu tarayıcıdaki kesitlerin, notların, dosyaların silindi.
+                    </p>
+                )}
                 {/* Künye: gazete başlığı gibi */}
                 <p className="landing__dateline mono">
                     <span>{today}</span>
